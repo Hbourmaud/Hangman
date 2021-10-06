@@ -8,7 +8,23 @@ import (
 )
 
 func main() {
-	fmt.Println(WordChoose())
+	word := (WordChoose())
+	fmt.Println("Good Luck, you have 10 attempts.")
+	// attempts := 10
+	lword := len(word)
+	tableau := []byte{}
+	for i := 0; i < lword; i++ {
+		tableau = append(tableau, '_')
+	}
+	s1 := rand.NewSource(time.Now().UnixNano())
+	r1 := rand.New(s1)
+	n := r1.Intn(lword)
+	letter := word[n]
+	tableau[n] = letter
+	fmt.Println(n)
+	fmt.Println(word)
+	fmt.Println(letter)
+	fmt.Println(string(tableau))
 }
 
 func WordChoose() []byte {
