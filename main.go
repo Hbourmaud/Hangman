@@ -10,20 +10,42 @@ import (
 func main() {
 	word := (WordChoose())
 	fmt.Println("Good Luck, you have 10 attempts.")
-	// attempts := 10
-	lword := len(word)
 	tableau := []byte{}
+	lword := len(word)
 	for i := 0; i < lword; i++ {
 		tableau = append(tableau, '_')
 	}
-	s1 := rand.NewSource(time.Now().UnixNano())
-	r1 := rand.New(s1)
-	n := r1.Intn(lword)
-	letter := word[n]
-	tableau[n] = letter
-	fmt.Println(n)
+
+	var letter byte
+	var stockLetter []byte
+	var compteur int
+	for i := 0; i < (len(word)/2)-1; i++ {
+		compteur = 0
+		letter = LetterAlea(word)
+		for j := 0; j < len(stockLetter); j++ {
+			if letter == stockLetter[j] {
+				i--
+				compteur++
+				break
+			} else {
+				continue
+			}
+		}
+		if compteur > 0 {
+			continue
+		} else {
+			for j := 0; j < lword; j++ {
+				if word[j] == letter {
+					tableau[j] = letter
+					stockLetter = append(stockLetter, letter)
+					fmt.Println(letter)
+					break
+				}
+			}
+		}
+	}
+
 	fmt.Println(word)
-	fmt.Println(letter)
 	fmt.Println(string(tableau))
 }
 
@@ -76,4 +98,12 @@ func WordChoose() []byte {
 		}
 	}
 	return word
+}
+
+func LetterAlea(word []byte) byte {
+	s1 := rand.NewSource(time.Now().UnixNano())
+	r1 := rand.New(s1)
+	n := r1.Intn(len(word))
+	letter := word[n]
+	return letter
 }
