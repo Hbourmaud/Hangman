@@ -10,7 +10,7 @@ import (
 
 func main() {
 	word := (WordChoose())
-	// fmt.Println(string(word))
+	fmt.Println(string(word))
 	fmt.Println("Good Luck, you have 10 attempts.")
 	attempts := 10
 	lword := len(word)
@@ -47,16 +47,17 @@ func main() {
 	}
 	PrintTable(tableau)
 	fmt.Println()
-	for i := 0; i < 10; i++ {
+	for {
 		lettertest := EnterLetter()
 		tableau, attempts = Check(tableau, word, lettertest, attempts)
 		if CheckFin(tableau) {
 			return
 		}
+		if attempts == 0 {
+			return
+		}
 	}
-	if attempts == 0 {
-		return
-	}
+
 }
 
 func WordChoose() []byte {
