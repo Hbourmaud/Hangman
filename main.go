@@ -1,6 +1,7 @@
 package main
 
 import (
+	"bufio"
 	"fmt"
 	"math/rand"
 	"os"
@@ -9,13 +10,14 @@ import (
 
 func main() {
 	word := (WordChoose())
+	// fmt.Println(string(word))
 	fmt.Println("Good Luck, you have 10 attempts.")
-	tableau := []byte{}
+	attempts := 10
 	lword := len(word)
+	tableau := []byte{}
 	for i := 0; i < lword; i++ {
 		tableau = append(tableau, '_')
 	}
-
 	var letter byte
 	var stockLetter []byte
 	var compteur int
@@ -38,15 +40,23 @@ func main() {
 				if word[j] == letter {
 					tableau[j] = letter
 					stockLetter = append(stockLetter, letter)
-					fmt.Println(letter)
 					break
 				}
 			}
 		}
 	}
-
-	fmt.Println(word)
-	fmt.Println(string(tableau))
+	PrintTable(tableau)
+	fmt.Println()
+	for i := 0; i < 10; i++ {
+		lettertest := EnterLetter()
+		tableau, attempts = Check(tableau, word, lettertest, attempts)
+		if CheckFin(tableau) {
+			return
+		}
+	}
+	if attempts == 0 {
+		return
+	}
 }
 
 func WordChoose() []byte {
@@ -106,4 +116,61 @@ func LetterAlea(word []byte) byte {
 	n := r1.Intn(len(word))
 	letter := word[n]
 	return letter
+}
+
+func EnterLetter() byte {
+	reader := bufio.NewReader(os.Stdin)
+	fmt.Print("Choose: ")
+	letter, _ := reader.ReadString('\n')
+	return byte(letter[0])
+}
+
+func Check(tableauV []byte, word []byte, letter byte, attempts int) ([]byte, int) {
+	pres := false
+	for i := 0; i < len(word); i++ {
+		if letter == word[i] {
+			tableauV[i] = letter
+			pres = true
+		}
+	}
+	if !pres {
+		attempts--
+		fmt.Print("Not present in the word, ")
+		fmt.Print(attempts)
+		fmt.Println(" attempts remaining")
+		PrintHang(attempts)
+	} else {
+		PrintTable(tableauV)
+		fmt.Println()
+	}
+	return tableauV, attempts
+}
+
+func CheckFin(tableau []byte) bool {
+	for i := 0; i < len(tableau); i++ {
+		if tableau[i] == '_' {
+			return false
+		}
+	}
+	fmt.Println("Congrats !")
+	return true
+}
+
+func PrintTable(tableau []byte) {
+	for i := 0; i < len(tableau); i++ {
+		fmt.Print(string(tableau[i]))
+		fmt.Print(string(' '))
+	}
+	fmt.Println()
+}
+
+func PrintHang(attempts int) {
+	hang, _ := os.Open("hangman.txt")
+	info, _ := os.Stat("hangman.txt")
+	size := info.Size()
+	arr := make([]byte, size)
+	hang.Read(arr)
+	hang.Close()
+	nb := (attempts - 10) * -1
+	fmt.Println(string(arr[0+80*(nb-1)-(1*(nb-1)) : 77+80*(nb-1)-(1*(nb-1))]))
 }
