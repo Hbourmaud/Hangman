@@ -2,14 +2,17 @@ package main
 
 import (
 	"fmt"
+	"math/rand"
 	"os"
+	"time"
 )
 
 func main() {
-	fmt.Println(WordChoose(1))
+	fmt.Println(WordChoose())
 }
 
-func WordChoose(n int) []byte {
+func WordChoose() []byte {
+	var n int
 	cpt := 0
 	cptmot := 0
 	index := 0
@@ -25,6 +28,12 @@ func WordChoose(n int) []byte {
 		if arr[i] == 13 {
 			cptmot++
 		}
+	}
+	s1 := rand.NewSource(time.Now().UnixNano())
+	r1 := rand.New(s1)
+	n = r1.Intn(cptmot + 1)
+	if n == 0 {
+		n++
 	}
 	for i := 0; i < len(arr); i++ {
 		if arr[i] == 13 {
