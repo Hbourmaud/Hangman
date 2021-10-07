@@ -177,6 +177,7 @@ func WordChoose() []rune {
 	arr := make([]byte, size)
 	listword.Read(arr)
 	listword.Close()
+	fmt.Println(arr)
 	var res []rune
 	for i := 0; i < len(arr); i++ {
 		if arr[i] == 13 {
@@ -214,6 +215,7 @@ func WordChoose() []rune {
 						temp = word[k+1:]
 					}
 				}
+				fmt.Println(temp)
 				return temp
 			}
 			index = i
@@ -241,6 +243,7 @@ func Check(tableauV []rune, word []rune, letter rune, compteur int) ([]rune, int
 	pres := false
 	for i := 0; i < len(word); i++ {
 		if letter == word[i] {
+			compteur = -1
 			tableauV[i] = letter
 			pres = true
 		}
