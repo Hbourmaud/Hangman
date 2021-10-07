@@ -3,6 +3,7 @@ package main
 import (
 	"bufio"
 	"fmt"
+	"io/ioutil"
 	"math/rand"
 	"os"
 	"time"
@@ -11,19 +12,19 @@ import (
 func main() {
 
 	word := (WordChoose())
-	fmt.Println(word)
+	fmt.Println("word", word)
 	maj := false
 	min := false
 	fmt.Println(string((word)))
 	fmt.Println("Good Luck, you have 10 attempts.")
 	attempts := 10
 	lword := len(word)
-	tableau := []rune{}
+	tableau := []byte{}
 	for i := 0; i < lword; i++ {
 		tableau = append(tableau, '_')
 	}
-	var letter rune
-	var stockLetter []rune
+	var letter byte
+	var stockLetter []byte
 	var compteur1 int
 	if word[0] < 91 && word[0] > 64 {
 		maj = true
@@ -164,28 +165,28 @@ func main() {
 
 }
 
-func WordChoose() []rune {
+func WordChoose() []byte {
 	var n int
 	cpt := 0
 	cptmot := 0
 	index := 0
 	args := os.Args[1]
-	var word []rune
-	listword, _ := os.Open(args)
+	var word []byte
+	listword, _ := ioutil.ReadFile(args)
 	info, _ := os.Stat(args)
 	size := info.Size()
 	arr := make([]byte, size)
-	listword.Read(arr)
-	listword.Close()
+	arr = listword
 	fmt.Println(arr)
-	var res []rune
+	fmt.Println("teststr", string(arr))
+	var res []byte
 	for i := 0; i < len(arr); i++ {
 		if arr[i] == 13 {
 			cptmot++
 		}
 	}
 	for i := 0; i < len(arr); i++ {
-		res = append(res, rune(arr[i]))
+		res = append(res, byte(arr[i]))
 	}
 	if cptmot == 0 {
 		return res
@@ -201,30 +202,43 @@ func WordChoose() []rune {
 			cpt++
 			if n == 1 {
 				word = res[0:i]
+				tempstr := string(word)
+				var word []byte
+				for _, wordabc := range tempstr {
+					word = append(word, byte(wordabc))
+				}
 				return word
 			}
 			if cpt == n {
 				word = res[index+2 : i]
+				fmt.Println("wordres", word)
+				tempstr := string(word)
+				var word []byte
+				for _, wordabc := range tempstr {
+					word = append(word, byte(wordabc))
+				}
+				fmt.Println("stp", word)
 				return word
 			}
 			if cpt == n-1 && cptmot+1 == n {
-				var temp []rune
+				var temp []byte
 				word = res[index+2:]
 				for k := 0; k < len(word); k++ {
 					if word[k] == 10 {
 						temp = word[k+1:]
 					}
 				}
-				fmt.Println(temp)
+				fmt.Println("temp", temp)
 				return temp
 			}
 			index = i
 		}
 	}
+	fmt.Println("wordfin", word)
 	return word
 }
 
-func LetterAlea(word []rune) rune {
+func LetterAlea(word []byte) byte {
 	s1 := rand.NewSource(time.Now().UnixNano())
 	r1 := rand.New(s1)
 	n := r1.Intn(len(word))
@@ -232,14 +246,14 @@ func LetterAlea(word []rune) rune {
 	return letter
 }
 
-func EnterLetter() rune {
+func EnterLetter() byte {
 	reader := bufio.NewReader(os.Stdin)
 	fmt.Print("Choose: ")
 	letter, _ := reader.ReadString('\n')
-	return rune(letter[0])
+	return byte(letter[0])
 }
 
-func Check(tableauV []rune, word []rune, letter rune, compteur int) ([]rune, int) {
+func Check(tableauV []byte, word []byte, letter byte, compteur int) ([]byte, int) {
 	pres := false
 	for i := 0; i < len(word); i++ {
 		if letter == word[i] {
@@ -254,7 +268,7 @@ func Check(tableauV []rune, word []rune, letter rune, compteur int) ([]rune, int
 	return tableauV, compteur
 }
 
-func CheckFin(tableau []rune) bool {
+func CheckFin(tableau []byte) bool {
 	for i := 0; i < len(tableau); i++ {
 		if tableau[i] == '_' {
 			return false
@@ -264,7 +278,7 @@ func CheckFin(tableau []rune) bool {
 	return true
 }
 
-func PrintTable(tableau []rune) {
+func PrintTable(tableau []byte) {
 	for i := 0; i < len(tableau); i++ {
 		fmt.Print(string(tableau[i]))
 		fmt.Print(string(' '))
