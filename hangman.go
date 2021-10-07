@@ -10,6 +10,7 @@ import (
 )
 
 func main() {
+
 	word := (WordChoose())
 	maj := false
 	min := false
@@ -73,7 +74,6 @@ func main() {
 				tableau, compteur = Check(tableau, word, 'é', compteur)
 				tableau, compteur = Check(tableau, word, 'ê', compteur)
 				tableau, compteur = Check(tableau, word, 'ë', compteur)
-				fmt.Println(compteur)
 				if compteur == 5 {
 					attempts = abc(attempts)
 					break
@@ -88,7 +88,6 @@ func main() {
 				tableau, compteur = Check(tableau, word, 'é', compteur)
 				tableau, compteur = Check(tableau, word, 'ê', compteur)
 				tableau, compteur = Check(tableau, word, 'ë', compteur)
-				fmt.Println(compteur)
 				if compteur == 5 {
 					attempts = abc(attempts)
 					break
@@ -213,7 +212,7 @@ func main() {
 				}
 				PrintTable(tableau)
 			}
-		} else {
+		} else if maj {
 			// accent de 'E'
 			if lettertest == 'E' || lettertest == 'È' || lettertest == 'É' || lettertest == 'Ê' || letter == 'Ë' {
 				compteur := 0
@@ -222,7 +221,6 @@ func main() {
 				tableau, compteur = Check(tableau, word, 'É', compteur)
 				tableau, compteur = Check(tableau, word, 'Ê', compteur)
 				tableau, compteur = Check(tableau, word, 'Ë', compteur)
-				fmt.Println(compteur)
 				if compteur == 5 {
 					attempts = abc(attempts)
 					break
@@ -237,7 +235,6 @@ func main() {
 				tableau, compteur = Check(tableau, word, 'É', compteur)
 				tableau, compteur = Check(tableau, word, 'Ê', compteur)
 				tableau, compteur = Check(tableau, word, 'Ë', compteur)
-				fmt.Println(compteur)
 				if compteur == 5 {
 					attempts = abc(attempts)
 					break
