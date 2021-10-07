@@ -26,9 +26,10 @@ func main() {
 	var letter byte
 	var stockLetter []byte
 	var compteur1 int
+	fmt.Println("wordminmaj", word)
 	if word[0] < 91 && word[0] > 64 {
 		maj = true
-	} else if word[0] < 123 && word[0] > 96 {
+	} else if (word[0] < 123 && word[0] > 96) || (word[0] > 223 && word[0] < 247) || (word[0] > 248 && word[0] <= 255) {
 		min = true
 	}
 	for i := 0; i < (len(word)/2)-1; i++ {
@@ -59,6 +60,7 @@ func main() {
 	fmt.Println()
 	for {
 		lettertest := EnterLetter()
+		fmt.Println("ettertest", lettertest)
 		if maj && (lettertest < 123 && lettertest > 96) {
 			lettertest = lettertest - 32
 		}
@@ -144,7 +146,7 @@ func main() {
 			}
 			PrintTable(tableau)
 		}
-		if lettertest != 'e' && lettertest != 'a' && lettertest != 'i' && lettertest != 'o' && lettertest != 'u' {
+		if lettertest != 'e' && lettertest != 'a' && lettertest != 'i' && lettertest != 'o' && lettertest != 'u' && (lettertest < 123 && lettertest > 96) || (lettertest < 91 && lettertest > 64) {
 			fmt.Println("fin")
 			compteur := -5
 			tableau, compteur = Check(tableau, word, lettertest, compteur)
@@ -250,7 +252,12 @@ func EnterLetter() byte {
 	reader := bufio.NewReader(os.Stdin)
 	fmt.Print("Choose: ")
 	letter, _ := reader.ReadString('\n')
-	return byte(letter[0])
+	tempstr := string(letter)
+	var rep []byte
+	for _, wordabc := range tempstr {
+		rep = append(rep, byte(wordabc))
+	}
+	return rep[0]
 }
 
 func Check(tableauV []byte, word []byte, letter byte, compteur int) ([]byte, int) {
