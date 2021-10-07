@@ -67,7 +67,7 @@ func main() {
 		}
 		if min {
 			// accent de 'e'
-			if lettertest == 'e' || lettertest == 'è' || lettertest == 'é' || lettertest == 'ê' || letter == 'ë' {
+			if lettertest == 'e' || lettertest == 'è' || lettertest == 'é' || lettertest == 'ê' || lettertest == 'ë' {
 				compteur := 0
 				tableau, compteur = Check(tableau, word, 'e', compteur)
 				tableau, compteur = Check(tableau, word, 'è', compteur)
@@ -81,7 +81,7 @@ func main() {
 				}
 			}
 			// accent de 'E' en minuscune
-			if lettertest == 'E' || lettertest == 'È' || lettertest == 'É' || lettertest == 'Ê' || letter == 'Ë' {
+			if lettertest == 'E' || lettertest == 'È' || lettertest == 'É' || lettertest == 'Ê' || lettertest == 'Ë' {
 				compteur := 0
 				tableau, compteur = Check(tableau, word, 'e', compteur)
 				tableau, compteur = Check(tableau, word, 'è', compteur)
@@ -95,7 +95,7 @@ func main() {
 				}
 			}
 			// accent de 'a'
-			if lettertest == 'a' || lettertest == 'à' || lettertest == 'á' || lettertest == 'â' || letter == 'ã' || letter == 'ä' || letter == 'å' {
+			if lettertest == 'a' || lettertest == 'à' || lettertest == 'á' || lettertest == 'â' || lettertest == 'ã' || lettertest == 'ä' || lettertest == 'å' {
 				compteur := 0
 				tableau, compteur = Check(tableau, word, 'a', compteur)
 				tableau, compteur = Check(tableau, word, 'à', compteur)
@@ -111,7 +111,7 @@ func main() {
 				}
 			}
 			// accent de 'A' en minuscule
-			if lettertest == 'A' || lettertest == 'À' || lettertest == 'Á' || lettertest == 'Â' || letter == 'Ã' || letter == 'Ä' || letter == 'Å' {
+			if lettertest == 'A' || lettertest == 'À' || lettertest == 'Á' || lettertest == 'Â' || lettertest == 'Ã' || lettertest == 'Ä' || lettertest == 'Å' {
 				compteur := 0
 				tableau, compteur = Check(tableau, word, 'a', compteur)
 				tableau, compteur = Check(tableau, word, 'à', compteur)
@@ -127,7 +127,7 @@ func main() {
 				}
 			}
 			// accent de 'i'
-			if lettertest == 'i' || lettertest == 'ì' || lettertest == 'í' || lettertest == 'î' || letter == 'ï' {
+			if lettertest == 'i' || lettertest == 'ì' || lettertest == 'í' || lettertest == 'î' || lettertest == 'ï' {
 				compteur := 0
 				tableau, compteur = Check(tableau, word, 'i', compteur)
 				tableau, compteur = Check(tableau, word, 'ì', compteur)
@@ -141,7 +141,7 @@ func main() {
 				}
 			}
 			// accent de 'I' en minuscule
-			if lettertest == 'I' || lettertest == 'Ì' || lettertest == 'Í' || lettertest == 'Î' || letter == 'Ï' {
+			if lettertest == 'I' || lettertest == 'Ì' || lettertest == 'Í' || lettertest == 'Î' || lettertest == 'Ï' {
 				compteur := 0
 				tableau, compteur = Check(tableau, word, 'i', compteur)
 				tableau, compteur = Check(tableau, word, 'ì', compteur)
@@ -155,7 +155,7 @@ func main() {
 				}
 			}
 			// accent de 'o'
-			if lettertest == 'o' || lettertest == 'ò' || lettertest == 'ó' || lettertest == 'ô' || letter == 'õ' || letter == 'ö' {
+			if lettertest == 'o' || lettertest == 'ò' || lettertest == 'ó' || lettertest == 'ô' || letter == 'õ' || lettertest == 'ö' {
 				compteur := 0
 				tableau, compteur = Check(tableau, word, 'o', compteur)
 				tableau, compteur = Check(tableau, word, 'ò', compteur)
@@ -170,7 +170,7 @@ func main() {
 				}
 			}
 			// accent de 'O' en minuscule
-			if lettertest == 'O' || lettertest == 'Ò' || lettertest == 'Ó' || lettertest == 'Ô' || letter == 'Õ' || letter == 'Ö' {
+			if lettertest == 'O' || lettertest == 'Ò' || lettertest == 'Ó' || lettertest == 'Ô' || lettertest == 'Õ' || lettertest == 'Ö' {
 				compteur := 0
 				tableau, compteur = Check(tableau, word, 'o', compteur)
 				tableau, compteur = Check(tableau, word, 'ò', compteur)
@@ -185,7 +185,7 @@ func main() {
 				}
 			}
 			// accent de 'u'
-			if lettertest == 'u' || lettertest == 'ù' || lettertest == 'ú' || lettertest == 'û' || letter == 'ü' {
+			if lettertest == 'u' || lettertest == 'ù' || lettertest == 'ú' || lettertest == 'û' || lettertest == 'ü' {
 				compteur := 0
 				tableau, compteur = Check(tableau, word, 'u', compteur)
 				tableau, compteur = Check(tableau, word, 'ù', compteur)
@@ -199,7 +199,7 @@ func main() {
 				}
 			}
 			// accent de 'U' en minuscule
-			if lettertest == 'U' || lettertest == 'Ù' || lettertest == 'Ú' || lettertest == 'Û' || letter == 'Ü' {
+			if lettertest == 'U' || lettertest == 'Ù' || lettertest == 'Ú' || lettertest == 'Û' || lettertest == 'Ü' {
 				compteur := 0
 				tableau, compteur = Check(tableau, word, 'u', compteur)
 				tableau, compteur = Check(tableau, word, 'ù', compteur)
@@ -214,7 +214,7 @@ func main() {
 			}
 		} else if maj {
 			// accent de 'E'
-			if lettertest == 'E' || lettertest == 'È' || lettertest == 'É' || lettertest == 'Ê' || letter == 'Ë' {
+			if lettertest == 'E' || lettertest == 'È' || lettertest == 'É' || lettertest == 'Ê' || lettertest == 'Ë' {
 				compteur := 0
 				tableau, compteur = Check(tableau, word, 'E', compteur)
 				tableau, compteur = Check(tableau, word, 'È', compteur)
@@ -228,7 +228,7 @@ func main() {
 				}
 			}
 			// accent de 'e' en majuscule
-			if lettertest == 'e' || lettertest == 'è' || lettertest == 'é' || lettertest == 'ê' || letter == 'ë' {
+			if lettertest == 'e' || lettertest == 'è' || lettertest == 'é' || lettertest == 'ê' || lettertest == 'ë' {
 				compteur := 0
 				tableau, compteur = Check(tableau, word, 'E', compteur)
 				tableau, compteur = Check(tableau, word, 'È', compteur)
@@ -242,7 +242,7 @@ func main() {
 				}
 			}
 			// accent de 'A'
-			if lettertest == 'A' || lettertest == 'À' || lettertest == 'Á' || lettertest == 'Â' || letter == 'Ã' || letter == 'Ä' || letter == 'Å' {
+			if lettertest == 'A' || lettertest == 'À' || lettertest == 'Á' || lettertest == 'Â' || lettertest == 'Ã' || lettertest == 'Ä' || lettertest == 'Å' {
 				compteur := 0
 				tableau, compteur = Check(tableau, word, 'A', compteur)
 				tableau, compteur = Check(tableau, word, 'À', compteur)
@@ -258,7 +258,7 @@ func main() {
 				}
 			}
 			// accent de 'a' en majuscule
-			if lettertest == 'a' || lettertest == 'à' || lettertest == 'á' || lettertest == 'â' || letter == 'ã' || letter == 'ä' || letter == 'å' {
+			if lettertest == 'a' || lettertest == 'à' || lettertest == 'á' || lettertest == 'â' || lettertest == 'ã' || lettertest == 'ä' || lettertest == 'å' {
 				compteur := 0
 				tableau, compteur = Check(tableau, word, 'A', compteur)
 				tableau, compteur = Check(tableau, word, 'À', compteur)
@@ -274,7 +274,7 @@ func main() {
 				}
 			}
 			// accent de 'I'
-			if lettertest == 'I' || lettertest == 'Ì' || lettertest == 'Í' || lettertest == 'Î' || letter == 'Ï' {
+			if lettertest == 'I' || lettertest == 'Ì' || lettertest == 'Í' || lettertest == 'Î' || lettertest == 'Ï' {
 				compteur := 0
 				tableau, compteur = Check(tableau, word, 'I', compteur)
 				tableau, compteur = Check(tableau, word, 'Ì', compteur)
@@ -288,7 +288,7 @@ func main() {
 				}
 			}
 			// accent de 'i' en majuscule
-			if lettertest == 'i' || lettertest == 'ì' || lettertest == 'í' || lettertest == 'î' || letter == 'ï' {
+			if lettertest == 'i' || lettertest == 'ì' || lettertest == 'í' || lettertest == 'î' || lettertest == 'ï' {
 				compteur := 0
 				tableau, compteur = Check(tableau, word, 'I', compteur)
 				tableau, compteur = Check(tableau, word, 'Ì', compteur)
@@ -302,7 +302,7 @@ func main() {
 				}
 			}
 			// accent de 'O'
-			if lettertest == 'O' || lettertest == 'Ò' || lettertest == 'Ó' || lettertest == 'Ô' || letter == 'Õ' || letter == 'Ö' {
+			if lettertest == 'O' || lettertest == 'Ò' || lettertest == 'Ó' || lettertest == 'Ô' || lettertest == 'Õ' || lettertest == 'Ö' {
 				compteur := 0
 				tableau, compteur = Check(tableau, word, 'O', compteur)
 				tableau, compteur = Check(tableau, word, 'Ò', compteur)
@@ -317,7 +317,7 @@ func main() {
 				}
 			}
 			// accent de 'o' en majuscule
-			if lettertest == 'o' || lettertest == 'ò' || lettertest == 'ó' || lettertest == 'ô' || letter == 'õ' || letter == 'ö' {
+			if lettertest == 'o' || lettertest == 'ò' || lettertest == 'ó' || lettertest == 'ô' || lettertest == 'õ' || lettertest == 'ö' {
 				compteur := 0
 				tableau, compteur = Check(tableau, word, 'O', compteur)
 				tableau, compteur = Check(tableau, word, 'Ò', compteur)
@@ -332,7 +332,7 @@ func main() {
 				}
 			}
 			// accent de 'U'
-			if lettertest == 'U' || lettertest == 'Ù' || lettertest == 'Ú' || lettertest == 'Û' || letter == 'Ü' {
+			if lettertest == 'U' || lettertest == 'Ù' || lettertest == 'Ú' || lettertest == 'Û' || lettertest == 'Ü' {
 				compteur := 0
 				tableau, compteur = Check(tableau, word, 'U', compteur)
 				tableau, compteur = Check(tableau, word, 'Ù', compteur)
@@ -346,7 +346,7 @@ func main() {
 				}
 			}
 			// accent de 'u' en majuscule
-			if lettertest == 'u' || lettertest == 'ù' || lettertest == 'ú' || lettertest == 'û' || letter == 'ü' {
+			if lettertest == 'u' || lettertest == 'ù' || lettertest == 'ú' || lettertest == 'û' || lettertest == 'ü' {
 				compteur := 0
 				tableau, compteur = Check(tableau, word, 'U', compteur)
 				tableau, compteur = Check(tableau, word, 'Ù', compteur)
