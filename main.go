@@ -24,25 +24,25 @@ func main() {
 	}
 	var letter rune
 	var stockLetter []rune
-	var compteur int
+	var compteur1 int
 	if word[0] < 91 && word[0] > 64 {
 		maj = true
 	} else if word[0] < 123 && word[0] > 96 {
 		min = true
 	}
 	for i := 0; i < (len(word)/2)-1; i++ {
-		compteur = 0
+		compteur1 = 0
 		letter = LetterAlea(word)
 		for j := 0; j < len(stockLetter); j++ {
 			if letter == stockLetter[j] {
 				i--
-				compteur++
+				compteur1++
 				break
 			} else {
 				continue
 			}
 		}
-		if compteur > 0 {
+		if compteur1 > 0 {
 			continue
 		} else {
 			for j := 0; j < lword; j++ {
@@ -64,7 +64,96 @@ func main() {
 		if min && (lettertest < 91 && lettertest > 64) {
 			lettertest = lettertest + 32
 		}
-		tableau, attempts = Check(tableau, word, lettertest, attempts)
+		// accent de 'e'
+		if lettertest == 'e' || lettertest == 'è' || lettertest == 'é' || lettertest == 'ê' || letter == 'ë' {
+			fmt.Println("test2")
+			compteur := 0
+			tableau, compteur = Check(tableau, word, 'e', compteur)
+			tableau, compteur = Check(tableau, word, 'è', compteur)
+			tableau, compteur = Check(tableau, word, 'é', compteur)
+			tableau, compteur = Check(tableau, word, 'ê', compteur)
+			tableau, compteur = Check(tableau, word, 'ë', compteur)
+			fmt.Println(compteur)
+			if compteur == 5 {
+				attempts = abc(attempts)
+				break
+			}
+			PrintTable(tableau)
+		}
+		// accent de 'a'
+		if lettertest == 'a' || lettertest == 'à' || lettertest == 'á' || lettertest == 'â' || letter == 'ã' || letter == 'ä' || letter == 'å' {
+			fmt.Println("test2")
+			compteur := 0
+			tableau, compteur = Check(tableau, word, 'a', compteur)
+			tableau, compteur = Check(tableau, word, 'à', compteur)
+			tableau, compteur = Check(tableau, word, 'á', compteur)
+			tableau, compteur = Check(tableau, word, 'â', compteur)
+			tableau, compteur = Check(tableau, word, 'ã', compteur)
+			tableau, compteur = Check(tableau, word, 'ä', compteur)
+			tableau, compteur = Check(tableau, word, 'å', compteur)
+			if compteur == 7 {
+				attempts = abc(attempts)
+				break
+			}
+			PrintTable(tableau)
+		}
+		// accent de 'i'
+		if lettertest == 'i' || lettertest == 'ì' || lettertest == 'í' || lettertest == 'î' || letter == 'ï' {
+			fmt.Println("test2")
+			compteur := 0
+			tableau, compteur = Check(tableau, word, 'i', compteur)
+			tableau, compteur = Check(tableau, word, 'ì', compteur)
+			tableau, compteur = Check(tableau, word, 'í', compteur)
+			tableau, compteur = Check(tableau, word, 'î', compteur)
+			tableau, compteur = Check(tableau, word, 'ï', compteur)
+			if compteur == 5 {
+				attempts = abc(attempts)
+				break
+			}
+			PrintTable(tableau)
+		}
+		// accent de 'o'
+		if lettertest == 'o' || lettertest == 'ò' || lettertest == 'ó' || lettertest == 'ô' || letter == 'õ' || letter == 'ö' {
+			fmt.Println("test2")
+			compteur := 0
+			tableau, compteur = Check(tableau, word, 'o', compteur)
+			tableau, compteur = Check(tableau, word, 'ò', compteur)
+			tableau, compteur = Check(tableau, word, 'ó', compteur)
+			tableau, compteur = Check(tableau, word, 'ô', compteur)
+			tableau, compteur = Check(tableau, word, 'õ', compteur)
+			tableau, compteur = Check(tableau, word, 'ö', compteur)
+			if compteur == 6 {
+				attempts = abc(attempts)
+				break
+			}
+			PrintTable(tableau)
+		}
+		// accent de 'u'
+		if lettertest == 'u' || lettertest == 'ù' || lettertest == 'ú' || lettertest == 'û' || letter == 'ü' {
+			fmt.Println("test2")
+			compteur := 0
+			tableau, compteur = Check(tableau, word, 'u', compteur)
+			tableau, compteur = Check(tableau, word, 'ù', compteur)
+			tableau, compteur = Check(tableau, word, 'ú', compteur)
+			tableau, compteur = Check(tableau, word, 'û', compteur)
+			tableau, compteur = Check(tableau, word, 'ü', compteur)
+			if compteur == 5 {
+				attempts = abc(attempts)
+				break
+			}
+			PrintTable(tableau)
+		}
+		if lettertest != 'e' && lettertest != 'a' && lettertest != 'i' && lettertest != 'o' && lettertest != 'u' {
+			fmt.Println("fin")
+			compteur := -5
+			tableau, compteur = Check(tableau, word, lettertest, compteur)
+			fmt.Println(compteur)
+			if compteur == -1 {
+				PrintTable(tableau)
+			} else {
+				attempts = abc(attempts)
+			}
+		}
 		if CheckFin(tableau) {
 			return
 		}
@@ -148,7 +237,7 @@ func EnterLetter() rune {
 	return rune(letter[0])
 }
 
-func Check(tableauV []rune, word []rune, letter rune, attempts int) ([]rune, int) {
+func Check(tableauV []rune, word []rune, letter rune, compteur int) ([]rune, int) {
 	pres := false
 	for i := 0; i < len(word); i++ {
 		if letter == word[i] {
@@ -157,16 +246,9 @@ func Check(tableauV []rune, word []rune, letter rune, attempts int) ([]rune, int
 		}
 	}
 	if !pres {
-		attempts--
-		fmt.Print("Not present in the word, ")
-		fmt.Print(attempts)
-		fmt.Println(" attempts remaining")
-		PrintHang(attempts)
-	} else {
-		PrintTable(tableauV)
-		fmt.Println()
+		compteur += 1
 	}
-	return tableauV, attempts
+	return tableauV, compteur
 }
 
 func CheckFin(tableau []rune) bool {
@@ -196,4 +278,13 @@ func PrintHang(attempts int) {
 	hang.Close()
 	nb := (attempts - 10) * -1
 	fmt.Println(string(arr[0+80*(nb-1)-(1*(nb-1)) : 77+80*(nb-1)-(1*(nb-1))]))
+}
+
+func abc(attempts int) int {
+	attempts--
+	fmt.Print("Not present in the word, ")
+	fmt.Print(attempts)
+	fmt.Println(" attempts remaining")
+	PrintHang(attempts)
+	return attempts
 }
