@@ -2,6 +2,7 @@ package main
 
 import (
 	"bufio"
+	"encoding/json"
 	"fmt"
 	"io/ioutil"
 	"math/rand"
@@ -10,6 +11,7 @@ import (
 )
 
 func main() {
+
 	word := (WordChoose())
 	maj := false
 	min := false
@@ -17,7 +19,6 @@ func main() {
 	fmt.Println(string((word)))
 	fmt.Println("Good Luck, you have 10 attempts.")
 	attempts := 10
-	lucky := 0
 	lword := len(word)
 	tableau := []byte{}
 	for i := 0; i < lword; i++ {
@@ -25,10 +26,7 @@ func main() {
 	}
 	var letter byte
 	var stockLetter []byte
-	// var stockLetterGame []byte
 	var compteur1 int
-	// stockLetterGame = append(stockLetterGame, 13)
-	fmt.Println(lucky)
 	if (word[0] < 91 && word[0] > 64) || (word[0] < 215 && word[0] > 191) || (word[0] < 221 && word[0] > 216) {
 		maj = true
 	} else if (word[0] < 123 && word[0] > 96) || (word[0] > 223 && word[0] < 247) || (word[0] > 248 && word[0] <= 255) {
@@ -139,7 +137,11 @@ func LetterAlea(word []byte) byte {
 	return letter
 }
 
-func EnterLetter(tableauX []byte, lucky int) (byte, []byte, int) {
+func EnterLetter(tableauX []byte) (byte, bool, []byte, bool, []byte) {
+	isALetter := false
+	stopgame := false
+	var sentence []byte
+	var repsentence []byte
 	reader := bufio.NewReader(os.Stdin)
 	fmt.Print("Choose: ")
 	letter, _ := reader.ReadString('\n')
@@ -148,12 +150,29 @@ func EnterLetter(tableauX []byte, lucky int) (byte, []byte, int) {
 	for _, wordabc := range tempstr {
 		rep = append(rep, byte(wordabc))
 	}
+	bytestop := []byte("STOP")
+	if len(rep) > 3 {
+		isALetter = false
+		for i := 0; i < len(letter)-2; i++ {
+			sentence = append(sentence, letter[i])
+		}
+		tempsentence := string(sentence)
+		for _, wordabc := range tempsentence {
+			repsentence = append(repsentence, byte(wordabc))
+		}
+		for i := 0; i < len(bytestop); i++ {
+			if bytestop[i] == repsentence[i] {
+				stopgame = true
+			} else {
+				break
+			}
+		}
+	}
 	for i := 0; i < len(tableauX); i++ {
 		if letter[0] == tableauX[i] {
 			fmt.Println("You have already tried this letter.")
-			lucky = 1
 			fmt.Println(tableauX)
-			return rep[0], tableauX, lucky
+			return rep[0], isALetter, repsentence, stopgame, tableauX
 		}
 	}
 	for i := 0; i <= len(tableauX); i++ {
@@ -239,18 +258,92 @@ func EnterLetter(tableauX []byte, lucky int) (byte, []byte, int) {
 	if len(tableauX) == 0 {
 		tableauX = append(tableauX, letter[0])
 	}
-	fmt.Println(tableauX)
-	return rep[0], tableauX, lucky
+	//fmt.Println(tableauX)
+	return rep[0], isALetter, repsentence, stopgame, tableauX
 }
 
 func CheckAccents(min bool, maj bool, tableau []byte, word []byte, attempts int, letter string) {
 	tableauX := []byte{}
+	isALetter := true
+	var sentence []byte
+	stopgame := false
 	var lettertest byte
-	var lucky int
 	for {
-		lettertest, tableauX, lucky = EnterLetter(tableauX, lucky)
-		if lucky == 1 {
-			continue
+		lettertest, isALetter, sentence, stopgame, tableauX = EnterLetter(tableauX)
+		if stopgame {
+			var save []byte
+			asave, _ := json.Marshal([]byte(tableau))
+			for i := 0; i < len(asave); i++ {
+				save = append(save, asave[i])
+			}
+			asave, _ = json.Marshal([]byte(word))
+			for i := 0; i < len(asave); i++ {
+				save = append(save, asave[i])
+			}
+			nbattempts := 48
+			if attempts != 10 {
+				for i := attempts; i > 0; i-- {
+					nbattempts++
+				}
+			}
+			//nbattemps 48 = 10 attempts left
+			asave, _ = json.Marshal(byte(nbattempts))
+			save = append(save, asave[0])
+			ioutil.WriteFile("save.txt", save, 0777)
+			os.Exit(0)
+		}
+		if !isALetter {
+			if len(sentence) > len(word) {
+				attempts = abc(attempts)
+				attempts = abc(attempts)
+				continue
+			}
+			for i := 0; i < len(sentence); i++ {
+				if sentence[i]-32 == word[i] {
+					sentence[i] = word[i]
+				}
+				if sentence[i]+32 == word[i] {
+					sentence[i] = word[i]
+				}
+				//e
+				if ((sentence[i] < 236 && sentence[i] > 231) || (sentence[i] < 204 && sentence[i] > 199) || sentence[i] == 101 || sentence[i] == 69) && ((word[i] < 236 && word[i] > 231) || (word[i] < 204 && word[i] > 199) || word[i] == 101 || word[i] == 69) {
+					sentence[i] = word[i]
+				}
+				//a
+				if ((sentence[i] < 232 && sentence[i] > 223) || (sentence[i] < 200 && sentence[i] > 191) || sentence[i] == 97 || sentence[i] == 65) && ((word[i] < 232 && word[i] > 223) || (word[i] < 200 && word[i] > 191) || word[i] == 97 || word[i] == 65) {
+					sentence[i] = word[i]
+				}
+				//i
+				if ((sentence[i] < 240 && sentence[i] > 235) || (sentence[i] < 208 && sentence[i] > 203) || sentence[i] == 105 || sentence[i] == 73) && ((word[i] < 240 && word[i] > 235) || (word[i] < 208 && word[i] > 203) || word[i] == 105 || word[i] == 73) {
+					sentence[i] = word[i]
+				}
+				//o
+				if ((sentence[i] < 247 && sentence[i] > 239) || (sentence[i] < 215 && sentence[i] > 209) || sentence[i] == 111 || sentence[i] == 79) && ((word[i] < 247 && word[i] > 239) || (word[i] < 215 && word[i] > 209) || word[i] == 111 || word[i] == 79) {
+					sentence[i] = word[i]
+				}
+				//u
+				if ((sentence[i] < 253 && sentence[i] > 248) || (sentence[i] < 221 && sentence[i] > 216) || sentence[i] == 117 || sentence[i] == 85) && ((word[i] < 253 && word[i] > 248) || (word[i] < 221 && word[i] > 216) || word[i] == 117 || word[i] == 85) {
+					sentence[i] = word[i]
+				}
+			}
+		}
+		if string(sentence) == string(word) {
+			PrintTable(word)
+			fmt.Println("Congrats !")
+			os.Exit(0)
+		} else if len(sentence) > 1 {
+			if attempts == 1 {
+				abc(attempts)
+				os.Exit(0)
+			} else if attempts == 2 {
+				attempts = abc(attempts)
+				attempts = abc(attempts)
+				os.Exit(0)
+			} else {
+				attempts = abc(attempts)
+				attempts = abc(attempts)
+				continue
+			}
 		}
 		if maj && (lettertest < 123 && lettertest > 96) {
 			lettertest = lettertest - 32
@@ -580,7 +673,6 @@ func Check(tableauV []byte, word []byte, letter byte, compteur int) ([]byte, int
 			pres = true
 		}
 	}
-
 	if !pres {
 		compteur += 1
 	}
@@ -625,5 +717,3 @@ func abc(attempts int) int {
 	PrintHang(attempts)
 	return attempts
 }
-
-func Change() {}
