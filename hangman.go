@@ -156,9 +156,103 @@ func EnterLetter(tableauX []byte, lucky int) (byte, []byte, int) {
 			return rep[0], tableauX, lucky
 		}
 	}
-	for i := 0; i < len(tableauX); i++ {
-		if i == len(tableauX)-1 {
+	for i := 0; i <= len(tableauX); i++ {
+		if i == len(tableauX) {
 			tableauX = append(tableauX, letter[0])
+			// //ajout supplémentaire de la lettre en majuscule
+			// if letter[0] > 96 && letter[0] < 123 {
+			// 	fmt.Println("test1")
+			// 	lettre := letter[0]
+			// 	lettre = lettre - 32
+			// 	tableauX = append(tableauX, lettre)
+			// 	fmt.Println(tableauX)
+			// 	break
+			// }
+			// //ajout supplémentaire de la lettre en minuscule
+			// if letter[0] > 64 && letter[0] < 91 {
+			// 	fmt.Println("test2")
+			// 	lettre := letter[0]
+			// 	lettre = lettre + 32
+			// 	tableauX = append(tableauX, lettre)
+			// 	fmt.Println(tableauX)
+			// 	break
+			// }
+			//e
+			if (letter[0] > 231 && letter[0] < 236) || (letter[0] > 199 && letter[0] < 204) || letter[0] == 101 || letter[0] == 69 {
+				tableauX = append(tableauX, 232)
+				tableauX = append(tableauX, 233)
+				tableauX = append(tableauX, 234)
+				tableauX = append(tableauX, 235)
+				tableauX = append(tableauX, 200)
+				tableauX = append(tableauX, 201)
+				tableauX = append(tableauX, 202)
+				tableauX = append(tableauX, 203)
+				tableauX = append(tableauX, 101)
+				tableauX = append(tableauX, 69)
+				break
+			}
+			//a
+			if (letter[0] > 223 && letter[0] < 230) || (letter[0] > 191 && letter[0] < 198) || letter[0] == 97 || letter[0] == 65 {
+				tableauX = append(tableauX, 224)
+				tableauX = append(tableauX, 225)
+				tableauX = append(tableauX, 226)
+				tableauX = append(tableauX, 227)
+				tableauX = append(tableauX, 228)
+				tableauX = append(tableauX, 229)
+				tableauX = append(tableauX, 192)
+				tableauX = append(tableauX, 193)
+				tableauX = append(tableauX, 194)
+				tableauX = append(tableauX, 195)
+				tableauX = append(tableauX, 196)
+				tableauX = append(tableauX, 197)
+				tableauX = append(tableauX, 97)
+				tableauX = append(tableauX, 65)
+				break
+			}
+			//i
+			if (letter[0] > 235 && letter[0] < 240) || (letter[0] > 203 && letter[0] < 208) || letter[0] == 105 || letter[0] == 73 {
+				tableauX = append(tableauX, 236)
+				tableauX = append(tableauX, 237)
+				tableauX = append(tableauX, 238)
+				tableauX = append(tableauX, 239)
+				tableauX = append(tableauX, 204)
+				tableauX = append(tableauX, 205)
+				tableauX = append(tableauX, 206)
+				tableauX = append(tableauX, 207)
+				tableauX = append(tableauX, 105)
+				tableauX = append(tableauX, 73)
+				break
+			}
+			//o
+			if (letter[0] > 241 && letter[0] < 247) || (letter[0] > 209 && letter[0] < 215) || letter[0] == 111 || letter[0] == 79 {
+				tableauX = append(tableauX, 242)
+				tableauX = append(tableauX, 243)
+				tableauX = append(tableauX, 244)
+				tableauX = append(tableauX, 245)
+				tableauX = append(tableauX, 246)
+				tableauX = append(tableauX, 210)
+				tableauX = append(tableauX, 211)
+				tableauX = append(tableauX, 212)
+				tableauX = append(tableauX, 213)
+				tableauX = append(tableauX, 214)
+				tableauX = append(tableauX, 111)
+				tableauX = append(tableauX, 79)
+				break
+			}
+			//u
+			if (letter[0] > 248 && letter[0] < 253) || (letter[0] > 216 && letter[0] < 221) || letter[0] == 117 || letter[0] == 85 {
+				tableauX = append(tableauX, 249)
+				tableauX = append(tableauX, 250)
+				tableauX = append(tableauX, 251)
+				tableauX = append(tableauX, 252)
+				tableauX = append(tableauX, 217)
+				tableauX = append(tableauX, 218)
+				tableauX = append(tableauX, 219)
+				tableauX = append(tableauX, 220)
+				tableauX = append(tableauX, 117)
+				tableauX = append(tableauX, 85)
+				break
+			}
 		}
 	}
 	if len(tableauX) == 0 {
@@ -550,3 +644,5 @@ func abc(attempts int) int {
 	PrintHang(attempts)
 	return attempts
 }
+
+func Change() {}
