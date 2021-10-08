@@ -10,7 +10,6 @@ import (
 )
 
 func main() {
-
 	word := (WordChoose())
 	maj := false
 	min := false
@@ -18,6 +17,7 @@ func main() {
 	fmt.Println(string((word)))
 	fmt.Println("Good Luck, you have 10 attempts.")
 	attempts := 10
+	lucky := 0
 	lword := len(word)
 	tableau := []byte{}
 	for i := 0; i < lword; i++ {
@@ -25,7 +25,10 @@ func main() {
 	}
 	var letter byte
 	var stockLetter []byte
+	// var stockLetterGame []byte
 	var compteur1 int
+	// stockLetterGame = append(stockLetterGame, 13)
+	fmt.Println(lucky)
 	if (word[0] < 91 && word[0] > 64) || (word[0] < 215 && word[0] > 191) || (word[0] < 221 && word[0] > 216) {
 		maj = true
 	} else if (word[0] < 123 && word[0] > 96) || (word[0] > 223 && word[0] < 247) || (word[0] > 248 && word[0] <= 255) {
@@ -57,7 +60,7 @@ func main() {
 	}
 	PrintTable(tableau)
 	fmt.Println()
-	CheckAccents(min, maj, tableau, word, attempts)
+	CheckAccents(min, maj, tableau, word, attempts, string(letter))
 
 }
 
@@ -136,7 +139,7 @@ func LetterAlea(word []byte) byte {
 	return letter
 }
 
-func EnterLetter() byte {
+func EnterLetter(tableauX []byte, lucky int) (byte, []byte, int) {
 	reader := bufio.NewReader(os.Stdin)
 	fmt.Print("Choose: ")
 	letter, _ := reader.ReadString('\n')
@@ -145,12 +148,35 @@ func EnterLetter() byte {
 	for _, wordabc := range tempstr {
 		rep = append(rep, byte(wordabc))
 	}
-	return rep[0]
+	for i := 0; i < len(tableauX); i++ {
+		if letter[0] == tableauX[i] {
+			fmt.Println("You have already tried this letter.")
+			lucky = 1
+			fmt.Println(tableauX)
+			return rep[0], tableauX, lucky
+		}
+	}
+	for i := 0; i < len(tableauX); i++ {
+		if i == len(tableauX)-1 {
+			tableauX = append(tableauX, letter[0])
+		}
+	}
+	if len(tableauX) == 0 {
+		tableauX = append(tableauX, letter[0])
+	}
+	fmt.Println(tableauX)
+	return rep[0], tableauX, lucky
 }
 
-func CheckAccents(min bool, maj bool, tableau []byte, word []byte, attempts int) {
+func CheckAccents(min bool, maj bool, tableau []byte, word []byte, attempts int, letter string) {
+	tableauX := []byte{}
+	var lettertest byte
+	var lucky int
 	for {
-		lettertest := EnterLetter()
+		lettertest, tableauX, lucky = EnterLetter(tableauX, lucky)
+		if lucky == 1 {
+			continue
+		}
 		if maj && (lettertest < 123 && lettertest > 96) {
 			lettertest = lettertest - 32
 		}
@@ -479,6 +505,7 @@ func Check(tableauV []byte, word []byte, letter byte, compteur int) ([]byte, int
 			pres = true
 		}
 	}
+
 	if !pres {
 		compteur += 1
 	}
