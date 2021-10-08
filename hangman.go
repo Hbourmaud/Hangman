@@ -159,25 +159,6 @@ func EnterLetter(tableauX []byte, lucky int) (byte, []byte, int) {
 	for i := 0; i <= len(tableauX); i++ {
 		if i == len(tableauX) {
 			tableauX = append(tableauX, letter[0])
-			// //ajout supplémentaire de la lettre en majuscule
-			// if letter[0] > 96 && letter[0] < 123 {
-			// 	fmt.Println("test1")
-			// 	lettre := letter[0]
-			// 	lettre = lettre - 32
-			// 	tableauX = append(tableauX, lettre)
-			// 	fmt.Println(tableauX)
-			// 	break
-			// }
-			// //ajout supplémentaire de la lettre en minuscule
-			// if letter[0] > 64 && letter[0] < 91 {
-			// 	fmt.Println("test2")
-			// 	lettre := letter[0]
-			// 	lettre = lettre + 32
-			// 	tableauX = append(tableauX, lettre)
-			// 	fmt.Println(tableauX)
-			// 	break
-			// }
-			//e
 			if (letter[0] > 231 && letter[0] < 236) || (letter[0] > 199 && letter[0] < 204) || letter[0] == 101 || letter[0] == 69 {
 				tableauX = append(tableauX, 232)
 				tableauX = append(tableauX, 233)
