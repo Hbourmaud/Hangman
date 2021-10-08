@@ -57,6 +57,98 @@ func main() {
 	}
 	PrintTable(tableau)
 	fmt.Println()
+	CheckAccents(min, maj, tableau, word, attempts)
+
+}
+
+func WordChoose() []byte {
+	var n int
+	cpt := 0
+	cptmot := 0
+	index := 0
+	args := os.Args[1]
+	var word []byte
+	listword, _ := ioutil.ReadFile(args)
+	info, _ := os.Stat(args)
+	size := info.Size()
+	arr := make([]byte, size)
+	arr = listword
+	var res []byte
+	for i := 0; i < len(arr); i++ {
+		if arr[i] == 13 {
+			cptmot++
+		}
+	}
+	for i := 0; i < len(arr); i++ {
+		res = append(res, byte(arr[i]))
+	}
+	if cptmot == 0 {
+		return res
+	}
+	s1 := rand.NewSource(time.Now().UnixNano())
+	r1 := rand.New(s1)
+	n = r1.Intn(cptmot + 1)
+	if n == 0 {
+		n++
+	}
+	for i := 0; i < len(res); i++ {
+		if arr[i] == 13 {
+			cpt++
+			if n == 1 {
+				word = res[0:i]
+				tempstr := string(word)
+				var word []byte
+				for _, wordabc := range tempstr {
+					word = append(word, byte(wordabc))
+				}
+				return word
+			}
+			if cpt == n {
+				word = res[index+2 : i]
+				tempstr := string(word)
+				var word []byte
+				for _, wordabc := range tempstr {
+					word = append(word, byte(wordabc))
+				}
+				return word
+			}
+			if cpt == n-1 && cptmot+1 == n {
+				var temp []byte
+				word = res[index+2:]
+				for k := 0; k < len(word); k++ {
+					if word[k] == 10 {
+						temp = word[k+1:]
+					}
+				}
+				return temp
+			}
+			index = i
+		}
+	}
+	return word
+}
+
+func LetterAlea(word []byte) byte {
+	s1 := rand.NewSource(time.Now().UnixNano())
+	r1 := rand.New(s1)
+	n := r1.Intn(len(word))
+	letter := word[n]
+	return letter
+}
+
+func EnterLetter() byte {
+	reader := bufio.NewReader(os.Stdin)
+	fmt.Print("Choose: ")
+	letter, _ := reader.ReadString('\n')
+	tempstr := string(letter)
+	var rep []byte
+	for _, wordabc := range tempstr {
+		rep = append(rep, byte(wordabc))
+	}
+	return rep[0]
+}
+
+func CheckAccents(min bool, maj bool, tableau []byte, word []byte, attempts int) {
 	for {
 		lettertest := EnterLetter()
 		if maj && (lettertest < 123 && lettertest > 96) {
@@ -155,7 +247,7 @@ func main() {
 				}
 			}
 			// accent de 'o'
-			if lettertest == 'o' || lettertest == 'ò' || lettertest == 'ó' || lettertest == 'ô' || letter == 'õ' || lettertest == 'ö' {
+			if lettertest == 'o' || lettertest == 'ò' || lettertest == 'ó' || lettertest == 'ô' || lettertest == 'õ' || lettertest == 'ö' {
 				compteur := 0
 				tableau, compteur = Check(tableau, word, 'o', compteur)
 				tableau, compteur = Check(tableau, word, 'ò', compteur)
@@ -370,100 +462,12 @@ func main() {
 			}
 		}
 		if CheckFin(tableau) {
-			return
+			os.Exit(0)
 		}
 		if attempts == 0 {
-			return
+			os.Exit(0)
 		}
 	}
-
-}
-
-func WordChoose() []byte {
-	var n int
-	cpt := 0
-	cptmot := 0
-	index := 0
-	args := os.Args[1]
-	var word []byte
-	listword, _ := ioutil.ReadFile(args)
-	info, _ := os.Stat(args)
-	size := info.Size()
-	arr := make([]byte, size)
-	arr = listword
-	var res []byte
-	for i := 0; i < len(arr); i++ {
-		if arr[i] == 13 {
-			cptmot++
-		}
-	}
-	for i := 0; i < len(arr); i++ {
-		res = append(res, byte(arr[i]))
-	}
-	if cptmot == 0 {
-		return res
-	}
-	s1 := rand.NewSource(time.Now().UnixNano())
-	r1 := rand.New(s1)
-	n = r1.Intn(cptmot + 1)
-	if n == 0 {
-		n++
-	}
-	for i := 0; i < len(res); i++ {
-		if arr[i] == 13 {
-			cpt++
-			if n == 1 {
-				word = res[0:i]
-				tempstr := string(word)
-				var word []byte
-				for _, wordabc := range tempstr {
-					word = append(word, byte(wordabc))
-				}
-				return word
-			}
-			if cpt == n {
-				word = res[index+2 : i]
-				tempstr := string(word)
-				var word []byte
-				for _, wordabc := range tempstr {
-					word = append(word, byte(wordabc))
-				}
-				return word
-			}
-			if cpt == n-1 && cptmot+1 == n {
-				var temp []byte
-				word = res[index+2:]
-				for k := 0; k < len(word); k++ {
-					if word[k] == 10 {
-						temp = word[k+1:]
-					}
-				}
-				return temp
-			}
-			index = i
-		}
-	}
-	return word
-}
-
-func LetterAlea(word []byte) byte {
-	s1 := rand.NewSource(time.Now().UnixNano())
-	r1 := rand.New(s1)
-	n := r1.Intn(len(word))
-	letter := word[n]
-	return letter
-}
-
-func EnterLetter() byte {
-	reader := bufio.NewReader(os.Stdin)
-	fmt.Print("Choose: ")
-	letter, _ := reader.ReadString('\n')
-	tempstr := string(letter)
-	var rep []byte
-	for _, wordabc := range tempstr {
-		rep = append(rep, byte(wordabc))
-	}
-	return rep[0]
 }
 
 func Check(tableauV []byte, word []byte, letter byte, compteur int) ([]byte, int) {
