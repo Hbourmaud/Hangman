@@ -225,8 +225,15 @@ func EnterLetter(tableauX []byte, lucky int) (byte, []byte, int) {
 				tableauX = append(tableauX, 85)
 				break
 			} else {
-				tableauX = append(tableauX, letter[0])
-				break
+				if letter[0] > 64 && letter[0] < 91 {
+					tableauX = append(tableauX, letter[0])
+					tableauX = append(tableauX, letter[0]+32)
+					break
+				} else if letter[0] > 96 && letter[0] < 123 {
+					tableauX = append(tableauX, letter[0])
+					tableauX = append(tableauX, letter[0]-32)
+					break
+				}
 			}
 		}
 	}
