@@ -158,10 +158,6 @@ func EnterLetter(tableauX []byte, lucky int) (byte, []byte, int) {
 	}
 	for i := 0; i <= len(tableauX); i++ {
 		if i == len(tableauX) {
-			// fmt.Println("TEST0")
-
-			// fmt.Println("TEST1")
-			//e
 			if (letter[0] > 231 && letter[0] < 236) || (letter[0] > 199 && letter[0] < 204) || letter[0] == 101 || letter[0] == 69 {
 				tableauX = append(tableauX, 232)
 				tableauX = append(tableauX, 233)
@@ -580,7 +576,6 @@ func Check(tableauV []byte, word []byte, letter byte, compteur int) ([]byte, int
 	}
 
 	if !pres {
-		fmt.Println("test")
 		compteur += 1
 	}
 	return tableauV, compteur
