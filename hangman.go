@@ -10,54 +10,84 @@ import (
 	"time"
 )
 
+type Message struct {
+	Attempts int
+	Word     []byte
+	Tableau  []byte
+	Stock    []byte
+}
+
 func main() {
-	word := (WordChoose())
+	var word []byte
 	maj := false
 	min := false
+	var attempts int
+	var tableau []byte
+	var stockLetter []byte
+	var tempostock []byte
+	if CheckSave() {
+		save, _ := os.Open(os.Args[2])
+		info, _ := os.Stat(os.Args[2])
+		size := info.Size()
+		arr := make([]byte, size)
+		save.Read(arr)
+		save.Close()
+		var store Message
+		json.Unmarshal(arr, &store)
+		attempts = store.Attempts
+		word = store.Word
+		tableau = store.Tableau
+		tempostock = store.Stock
+	} else {
+		attempts = 10
+		word = (WordChoose())
+		tableau = []byte{}
+	}
 	//cheat code
-	fmt.Println(string((word)))
-	fmt.Println("Good Luck, you have 10 attempts.")
-	attempts := 10
+	//fmt.Println(string((word)))
+	fmt.Println("Good Luck, you have", attempts, "attempts.")
 	lword := len(word)
-	tableau := []byte{}
-	for i := 0; i < lword; i++ {
-		tableau = append(tableau, '_')
+	if !CheckSave() {
+		for i := 0; i < lword; i++ {
+			tableau = append(tableau, '_')
+		}
 	}
 	var letter byte
-	var stockLetter []byte
 	var compteur1 int
 	if (word[0] < 91 && word[0] > 64) || (word[0] < 215 && word[0] > 191) || (word[0] < 221 && word[0] > 216) {
 		maj = true
 	} else if (word[0] < 123 && word[0] > 96) || (word[0] > 223 && word[0] < 247) || (word[0] > 248 && word[0] <= 255) {
 		min = true
 	}
-	for i := 0; i < (len(word)/2)-1; i++ {
-		compteur1 = 0
-		letter = LetterAlea(word)
-		for j := 0; j < len(stockLetter); j++ {
-			if letter == stockLetter[j] {
-				i--
-				compteur1++
-				break
-			} else {
-				continue
-			}
-		}
-		if compteur1 > 0 {
-			continue
-		} else {
-			for j := 0; j < lword; j++ {
-				if word[j] == letter {
-					tableau[j] = letter
-					stockLetter = append(stockLetter, letter)
+	if !CheckSave() {
+		for i := 0; i < (len(word)/2)-1; i++ {
+			compteur1 = 0
+			letter = LetterAlea(word)
+			for j := 0; j < len(stockLetter); j++ {
+				if letter == stockLetter[j] {
+					i--
+					compteur1++
 					break
+				} else {
+					continue
+				}
+			}
+			if compteur1 > 0 {
+				continue
+			} else {
+				for j := 0; j < lword; j++ {
+					if word[j] == letter {
+						tableau[j] = letter
+						stockLetter = append(stockLetter, letter)
+						break
+					}
 				}
 			}
 		}
 	}
 	PrintTable(tableau)
 	fmt.Println()
-	CheckAccents(min, maj, tableau, word, attempts, string(letter))
+	CheckAccents(min, maj, tableau, word, attempts, string(letter), tempostock)
 
 }
 
@@ -136,11 +166,13 @@ func LetterAlea(word []byte) byte {
 	return letter
 }
 
-func EnterLetter(tableauX []byte, lucky int) (byte, []byte, int, bool, []byte, bool) {
+func EnterLetter(tableauX []byte, lucky int, attempts int) (byte, []byte, int, bool, []byte, bool, bool) {
 	isALetter := false
 	stopgame := false
+	isInvalid := false
 	var sentence []byte
 	var repsentence []byte
+	bytestop := []byte("STOP")
 	reader := bufio.NewReader(os.Stdin)
 	fmt.Print("Choose: ")
 	letter, _ := reader.ReadString('\n')
@@ -149,7 +181,7 @@ func EnterLetter(tableauX []byte, lucky int) (byte, []byte, int, bool, []byte, b
 	for _, wordabc := range tempstr {
 		rep = append(rep, byte(wordabc))
 	}
-	bytestop := []byte("STOP")
+
 	if len(rep) > 3 {
 		isALetter = false
 		for i := 0; i < len(letter)-2; i++ {
@@ -166,127 +198,135 @@ func EnterLetter(tableauX []byte, lucky int) (byte, []byte, int, bool, []byte, b
 				break
 			}
 		}
-	}
-	for i := 0; i < len(tableauX); i++ {
-		if rep[0] == tableauX[i] {
-			fmt.Println("You have already tried this letter.")
-			lucky = 1
-			//fmt.Println(tableauX)
-			return rep[0], tableauX, lucky, isALetter, repsentence, stopgame
+	} else {
+		if rep[0] >= 32 && rep[0] <= 64 {
+			isInvalid = true
 		}
+		isALetter = true
 	}
-	for i := 0; i <= len(tableauX); i++ {
-		if i == len(tableauX) {
-			//e
-			if (rep[0] > 231 && rep[0] < 236) || (rep[0] > 199 && rep[0] < 204) || rep[0] == 101 || rep[0] == 69 {
 
-				tableauX = append(tableauX, 232)
-				tableauX = append(tableauX, 233)
-				tableauX = append(tableauX, 234)
-				tableauX = append(tableauX, 235)
-				tableauX = append(tableauX, 200)
-				tableauX = append(tableauX, 201)
-				tableauX = append(tableauX, 202)
-				tableauX = append(tableauX, 203)
-				tableauX = append(tableauX, 101)
-				tableauX = append(tableauX, 69)
-				break
-			} else if (rep[0] > 223 && rep[0] < 230) || (rep[0] > 191 && rep[0] < 198) || rep[0] == 97 || rep[0] == 65 {
-				tableauX = append(tableauX, 224)
-				tableauX = append(tableauX, 225)
-				tableauX = append(tableauX, 226)
-				tableauX = append(tableauX, 227)
-				tableauX = append(tableauX, 228)
-				tableauX = append(tableauX, 229)
-				tableauX = append(tableauX, 192)
-				tableauX = append(tableauX, 193)
-				tableauX = append(tableauX, 194)
-				tableauX = append(tableauX, 195)
-				tableauX = append(tableauX, 196)
-				tableauX = append(tableauX, 197)
-				tableauX = append(tableauX, 97)
-				tableauX = append(tableauX, 65)
-				break
-			} else if (rep[0] > 235 && rep[0] < 240) || (rep[0] > 203 && rep[0] < 208) || rep[0] == 105 || rep[0] == 73 {
-				tableauX = append(tableauX, 236)
-				tableauX = append(tableauX, 237)
-				tableauX = append(tableauX, 238)
-				tableauX = append(tableauX, 239)
-				tableauX = append(tableauX, 204)
-				tableauX = append(tableauX, 205)
-				tableauX = append(tableauX, 206)
-				tableauX = append(tableauX, 207)
-				tableauX = append(tableauX, 105)
-				tableauX = append(tableauX, 73)
-				break
-			} else if (rep[0] > 241 && rep[0] < 247) || (rep[0] > 209 && rep[0] < 215) || rep[0] == 111 || rep[0] == 79 {
-				tableauX = append(tableauX, 242)
-				tableauX = append(tableauX, 243)
-				tableauX = append(tableauX, 244)
-				tableauX = append(tableauX, 245)
-				tableauX = append(tableauX, 246)
-				tableauX = append(tableauX, 210)
-				tableauX = append(tableauX, 211)
-				tableauX = append(tableauX, 212)
-				tableauX = append(tableauX, 213)
-				tableauX = append(tableauX, 214)
-				tableauX = append(tableauX, 111)
-				tableauX = append(tableauX, 79)
-				break
-			} else if (rep[0] > 248 && rep[0] < 253) || (rep[0] > 216 && rep[0] < 221) || rep[0] == 117 || rep[0] == 85 {
-				tableauX = append(tableauX, 249)
-				tableauX = append(tableauX, 250)
-				tableauX = append(tableauX, 251)
-				tableauX = append(tableauX, 252)
-				tableauX = append(tableauX, 217)
-				tableauX = append(tableauX, 218)
-				tableauX = append(tableauX, 219)
-				tableauX = append(tableauX, 220)
-				tableauX = append(tableauX, 117)
-				tableauX = append(tableauX, 85)
-				break
-			} else {
-				tableauX = append(tableauX, rep[0])
-				break
+	if isALetter && !isInvalid {
+		for i := 0; i < len(tableauX); i++ {
+			if rep[0] == tableauX[i] {
+				fmt.Println("You have already tried this letter.")
+				lucky = 1
+				//fmt.Println(tableauX)
+				return rep[0], tableauX, lucky, isALetter, repsentence, stopgame, isInvalid
 			}
 		}
+		for i := 0; i <= len(tableauX); i++ {
+			if i == len(tableauX) {
+				//e
+				if (rep[0] > 231 && rep[0] < 236) || (rep[0] > 199 && rep[0] < 204) || rep[0] == 101 || rep[0] == 69 {
+
+					tableauX = append(tableauX, 232)
+					tableauX = append(tableauX, 233)
+					tableauX = append(tableauX, 234)
+					tableauX = append(tableauX, 235)
+					tableauX = append(tableauX, 200)
+					tableauX = append(tableauX, 201)
+					tableauX = append(tableauX, 202)
+					tableauX = append(tableauX, 203)
+					tableauX = append(tableauX, 101)
+					tableauX = append(tableauX, 69)
+					break
+				} else if (rep[0] > 223 && rep[0] < 230) || (rep[0] > 191 && rep[0] < 198) || rep[0] == 97 || rep[0] == 65 {
+					tableauX = append(tableauX, 224)
+					tableauX = append(tableauX, 225)
+					tableauX = append(tableauX, 226)
+					tableauX = append(tableauX, 227)
+					tableauX = append(tableauX, 228)
+					tableauX = append(tableauX, 229)
+					tableauX = append(tableauX, 192)
+					tableauX = append(tableauX, 193)
+					tableauX = append(tableauX, 194)
+					tableauX = append(tableauX, 195)
+					tableauX = append(tableauX, 196)
+					tableauX = append(tableauX, 197)
+					tableauX = append(tableauX, 97)
+					tableauX = append(tableauX, 65)
+					break
+				} else if (rep[0] > 235 && rep[0] < 240) || (rep[0] > 203 && rep[0] < 208) || rep[0] == 105 || rep[0] == 73 {
+					tableauX = append(tableauX, 236)
+					tableauX = append(tableauX, 237)
+					tableauX = append(tableauX, 238)
+					tableauX = append(tableauX, 239)
+					tableauX = append(tableauX, 204)
+					tableauX = append(tableauX, 205)
+					tableauX = append(tableauX, 206)
+					tableauX = append(tableauX, 207)
+					tableauX = append(tableauX, 105)
+					tableauX = append(tableauX, 73)
+					break
+				} else if (rep[0] > 241 && rep[0] < 247) || (rep[0] > 209 && rep[0] < 215) || rep[0] == 111 || rep[0] == 79 {
+					tableauX = append(tableauX, 242)
+					tableauX = append(tableauX, 243)
+					tableauX = append(tableauX, 244)
+					tableauX = append(tableauX, 245)
+					tableauX = append(tableauX, 246)
+					tableauX = append(tableauX, 210)
+					tableauX = append(tableauX, 211)
+					tableauX = append(tableauX, 212)
+					tableauX = append(tableauX, 213)
+					tableauX = append(tableauX, 214)
+					tableauX = append(tableauX, 111)
+					tableauX = append(tableauX, 79)
+					break
+				} else if (rep[0] > 248 && rep[0] < 253) || (rep[0] > 216 && rep[0] < 221) || rep[0] == 117 || rep[0] == 85 {
+					tableauX = append(tableauX, 249)
+					tableauX = append(tableauX, 250)
+					tableauX = append(tableauX, 251)
+					tableauX = append(tableauX, 252)
+					tableauX = append(tableauX, 217)
+					tableauX = append(tableauX, 218)
+					tableauX = append(tableauX, 219)
+					tableauX = append(tableauX, 220)
+					tableauX = append(tableauX, 117)
+					tableauX = append(tableauX, 85)
+					break
+				} else {
+					if letter[0] > 64 && letter[0] < 91 {
+						tableauX = append(tableauX, letter[0])
+						tableauX = append(tableauX, letter[0]+32)
+						break
+					} else if letter[0] > 96 && letter[0] < 123 {
+						tableauX = append(tableauX, letter[0])
+						tableauX = append(tableauX, letter[0]-32)
+						break
+					}
+					tableauX = append(tableauX, rep[0])
+					break
+				}
+			}
+		}
+		if len(tableauX) == 0 {
+			tableauX = append(tableauX, rep[0])
+		}
 	}
-	if len(tableauX) == 0 {
-		tableauX = append(tableauX, rep[0])
-	}
-	fmt.Println(tableauX)
-	return rep[0], tableauX, lucky, isALetter, repsentence, stopgame
+	//fmt.Println(tableauX)
+	return rep[0], tableauX, lucky, isALetter, repsentence, stopgame, isInvalid
 }
 
-func CheckAccents(min bool, maj bool, tableau []byte, word []byte, attempts int, letter string) {
+func CheckAccents(min bool, maj bool, tableau []byte, word []byte, attempts int, letter string, tempostock []byte) {
 	tableauX := []byte{}
 	var lettertest byte
 	var isALetter bool
 	var sentence []byte
 	var stopgame bool
+	var isInvalid bool
+	if CheckSave() {
+		tableauX = tempostock
+	}
 	for {
 		lucky := 0
-		lettertest, tableauX, lucky, isALetter, sentence, stopgame = EnterLetter(tableauX, lucky)
+		lettertest, tableauX, lucky, isALetter, sentence, stopgame, isInvalid = EnterLetter(tableauX, lucky, attempts)
+		if isInvalid {
+			attempts = abc(attempts)
+		}
 		if stopgame {
-			var save []byte
-			asave, _ := json.Marshal([]byte(tableau))
-			for i := 0; i < len(asave); i++ {
-				save = append(save, asave[i])
-			}
-			asave, _ = json.Marshal([]byte(word))
-			for i := 0; i < len(asave); i++ {
-				save = append(save, asave[i])
-			}
-			nbattempts := 48
-			if attempts != 10 {
-				for i := attempts; i > 0; i-- {
-					nbattempts++
-				}
-			}
-			//nbattemps 48 = 10 attempts left
-			asave, _ = json.Marshal(byte(nbattempts))
-			save = append(save, asave[0])
-			ioutil.WriteFile("save.txt", save, 0777)
+			m := Message{attempts, word, tableau, tableauX}
+			saved, _ := json.Marshal(m)
+			ioutil.WriteFile("save.txt", saved, 0777)
 			os.Exit(0)
 		}
 		if !isALetter {
@@ -649,12 +689,13 @@ func CheckAccents(min bool, maj bool, tableau []byte, word []byte, attempts int,
 		if lettertest != 'e' && lettertest != 'a' && lettertest != 'i' && lettertest != 'o' && lettertest != 'u' && (lettertest < 123 && lettertest > 96) || (lettertest < 91 && lettertest > 64) {
 			compteur := -5
 			tableau, compteur = Check(tableau, word, lettertest, compteur)
-			if compteur == -1 {
+			if compteur == -1 && lettertest != 'E' && lettertest != 'A' && lettertest != 'I' && lettertest != 'O' && lettertest != 'U' {
 				PrintTable(tableau)
-			} else {
+			} else if !maj {
 				attempts = abc(attempts)
 			}
 		}
+
 		if CheckFin(tableau) {
 			os.Exit(0)
 		}
@@ -717,4 +758,11 @@ func abc(attempts int) int {
 	fmt.Println(" attempts remaining")
 	PrintHang(attempts)
 	return attempts
+}
+
+func CheckSave() bool {
+	if os.Args[1] == "--startWith" && len(os.Args) == 3 {
+		return true
+	}
+	return false
 }
