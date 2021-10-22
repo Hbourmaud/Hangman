@@ -48,7 +48,7 @@ func main() {
 		tableau = []byte{}
 	}
 	//cheat code
-	fmt.Println(string((word)))
+	//fmt.Println(string((word)))
 	fmt.Println("Good Luck, you have", attempts, "attempts.")
 	lword := len(word)
 	if !CheckSave() {
@@ -332,7 +332,7 @@ func CheckAccents(min bool, maj bool, tableau []byte, word []byte, attempts int,
 		lucky := 0
 		lettertest, tableauX, lucky, isALetter, sentence, stopgame, isInvalid = EnterLetter(tableauX, lucky, attempts)
 		if isInvalid {
-			attempts = abc(attempts)
+			attempts = wrong(attempts)
 		}
 		if stopgame {
 			m := Message{attempts, word, tableau, tableauX}
@@ -342,8 +342,8 @@ func CheckAccents(min bool, maj bool, tableau []byte, word []byte, attempts int,
 		}
 		if !isALetter {
 			if len(sentence) > len(word) {
-				attempts = abc(attempts)
-				attempts = abc(attempts)
+				attempts = wrong(attempts)
+				attempts = wrong(attempts)
 				continue
 			}
 			for i := 0; i < len(sentence); i++ {
@@ -386,15 +386,15 @@ func CheckAccents(min bool, maj bool, tableau []byte, word []byte, attempts int,
 			os.Exit(0)
 		} else if len(sentence) > 1 {
 			if attempts == 1 {
-				abc(attempts)
+				wrong(attempts)
 				os.Exit(0)
 			} else if attempts == 2 {
-				attempts = abc(attempts)
-				attempts = abc(attempts)
+				attempts = wrong(attempts)
+				attempts = wrong(attempts)
 				os.Exit(0)
 			} else {
-				attempts = abc(attempts)
-				attempts = abc(attempts)
+				attempts = wrong(attempts)
+				attempts = wrong(attempts)
 				continue
 			}
 		}
@@ -417,7 +417,7 @@ func CheckAccents(min bool, maj bool, tableau []byte, word []byte, attempts int,
 				tableau, compteur = Check(tableau, word, 'ê', compteur)
 				tableau, compteur = Check(tableau, word, 'ë', compteur)
 				if compteur == 5 {
-					attempts = abc(attempts)
+					attempts = wrong(attempts)
 				} else {
 					if ChooseFile() {
 						PrintArtTable(tableau, min)
@@ -436,7 +436,7 @@ func CheckAccents(min bool, maj bool, tableau []byte, word []byte, attempts int,
 				tableau, compteur = Check(tableau, word, 'ê', compteur)
 				tableau, compteur = Check(tableau, word, 'ë', compteur)
 				if compteur == 5 {
-					attempts = abc(attempts)
+					attempts = wrong(attempts)
 				} else {
 					if ChooseFile() {
 						PrintArtTable(tableau, min)
@@ -457,7 +457,7 @@ func CheckAccents(min bool, maj bool, tableau []byte, word []byte, attempts int,
 				tableau, compteur = Check(tableau, word, 'ä', compteur)
 				tableau, compteur = Check(tableau, word, 'å', compteur)
 				if compteur == 7 {
-					attempts = abc(attempts)
+					attempts = wrong(attempts)
 				} else {
 					if ChooseFile() {
 						PrintArtTable(tableau, min)
@@ -482,7 +482,7 @@ func CheckAccents(min bool, maj bool, tableau []byte, word []byte, attempts int,
 				tableau, compteur = Check(tableau, word, 'ä', compteur)
 				tableau, compteur = Check(tableau, word, 'å', compteur)
 				if compteur == 7 {
-					attempts = abc(attempts)
+					attempts = wrong(attempts)
 				} else {
 					if ChooseFile() {
 						PrintArtTable(tableau, min)
@@ -501,7 +501,7 @@ func CheckAccents(min bool, maj bool, tableau []byte, word []byte, attempts int,
 				tableau, compteur = Check(tableau, word, 'î', compteur)
 				tableau, compteur = Check(tableau, word, 'ï', compteur)
 				if compteur == 5 {
-					attempts = abc(attempts)
+					attempts = wrong(attempts)
 				} else {
 					if ChooseFile() {
 						PrintArtTable(tableau, min)
@@ -520,7 +520,7 @@ func CheckAccents(min bool, maj bool, tableau []byte, word []byte, attempts int,
 				tableau, compteur = Check(tableau, word, 'î', compteur)
 				tableau, compteur = Check(tableau, word, 'ï', compteur)
 				if compteur == 5 {
-					attempts = abc(attempts)
+					attempts = wrong(attempts)
 				} else {
 					if ChooseFile() {
 						PrintArtTable(tableau, min)
@@ -540,7 +540,7 @@ func CheckAccents(min bool, maj bool, tableau []byte, word []byte, attempts int,
 				tableau, compteur = Check(tableau, word, 'õ', compteur)
 				tableau, compteur = Check(tableau, word, 'ö', compteur)
 				if compteur == 6 {
-					attempts = abc(attempts)
+					attempts = wrong(attempts)
 				} else {
 					if ChooseFile() {
 						PrintArtTable(tableau, min)
@@ -560,7 +560,7 @@ func CheckAccents(min bool, maj bool, tableau []byte, word []byte, attempts int,
 				tableau, compteur = Check(tableau, word, 'õ', compteur)
 				tableau, compteur = Check(tableau, word, 'ö', compteur)
 				if compteur == 6 {
-					attempts = abc(attempts)
+					attempts = wrong(attempts)
 				} else {
 					if ChooseFile() {
 						PrintArtTable(tableau, min)
@@ -579,7 +579,7 @@ func CheckAccents(min bool, maj bool, tableau []byte, word []byte, attempts int,
 				tableau, compteur = Check(tableau, word, 'û', compteur)
 				tableau, compteur = Check(tableau, word, 'ü', compteur)
 				if compteur == 5 {
-					attempts = abc(attempts)
+					attempts = wrong(attempts)
 				} else {
 					if ChooseFile() {
 						PrintArtTable(tableau, min)
@@ -598,7 +598,7 @@ func CheckAccents(min bool, maj bool, tableau []byte, word []byte, attempts int,
 				tableau, compteur = Check(tableau, word, 'û', compteur)
 				tableau, compteur = Check(tableau, word, 'ü', compteur)
 				if compteur == 5 {
-					attempts = abc(attempts)
+					attempts = wrong(attempts)
 				} else {
 					if ChooseFile() {
 						PrintArtTable(tableau, min)
@@ -618,7 +618,7 @@ func CheckAccents(min bool, maj bool, tableau []byte, word []byte, attempts int,
 				tableau, compteur = Check(tableau, word, 'Ê', compteur)
 				tableau, compteur = Check(tableau, word, 'Ë', compteur)
 				if compteur == 5 {
-					attempts = abc(attempts)
+					attempts = wrong(attempts)
 				} else {
 					if ChooseFile() {
 						PrintArtTable(tableau, min)
@@ -637,7 +637,7 @@ func CheckAccents(min bool, maj bool, tableau []byte, word []byte, attempts int,
 				tableau, compteur = Check(tableau, word, 'Ê', compteur)
 				tableau, compteur = Check(tableau, word, 'Ë', compteur)
 				if compteur == 5 {
-					attempts = abc(attempts)
+					attempts = wrong(attempts)
 				} else {
 					if ChooseFile() {
 						PrintArtTable(tableau, min)
@@ -658,7 +658,7 @@ func CheckAccents(min bool, maj bool, tableau []byte, word []byte, attempts int,
 				tableau, compteur = Check(tableau, word, 'Ä', compteur)
 				tableau, compteur = Check(tableau, word, 'Å', compteur)
 				if compteur == 7 {
-					attempts = abc(attempts)
+					attempts = wrong(attempts)
 				} else {
 					if ChooseFile() {
 						PrintArtTable(tableau, min)
@@ -679,7 +679,7 @@ func CheckAccents(min bool, maj bool, tableau []byte, word []byte, attempts int,
 				tableau, compteur = Check(tableau, word, 'Ä', compteur)
 				tableau, compteur = Check(tableau, word, 'Å', compteur)
 				if compteur == 7 {
-					attempts = abc(attempts)
+					attempts = wrong(attempts)
 				} else {
 					if ChooseFile() {
 						PrintArtTable(tableau, min)
@@ -698,7 +698,7 @@ func CheckAccents(min bool, maj bool, tableau []byte, word []byte, attempts int,
 				tableau, compteur = Check(tableau, word, 'Î', compteur)
 				tableau, compteur = Check(tableau, word, 'Ï', compteur)
 				if compteur == 5 {
-					attempts = abc(attempts)
+					attempts = wrong(attempts)
 				} else {
 					if ChooseFile() {
 						PrintArtTable(tableau, min)
@@ -717,7 +717,7 @@ func CheckAccents(min bool, maj bool, tableau []byte, word []byte, attempts int,
 				tableau, compteur = Check(tableau, word, 'Î', compteur)
 				tableau, compteur = Check(tableau, word, 'Ï', compteur)
 				if compteur == 5 {
-					attempts = abc(attempts)
+					attempts = wrong(attempts)
 				} else {
 					if ChooseFile() {
 						PrintArtTable(tableau, min)
@@ -737,7 +737,7 @@ func CheckAccents(min bool, maj bool, tableau []byte, word []byte, attempts int,
 				tableau, compteur = Check(tableau, word, 'Õ', compteur)
 				tableau, compteur = Check(tableau, word, 'Ö', compteur)
 				if compteur == 6 {
-					attempts = abc(attempts)
+					attempts = wrong(attempts)
 				} else {
 					if ChooseFile() {
 						PrintArtTable(tableau, min)
@@ -757,7 +757,7 @@ func CheckAccents(min bool, maj bool, tableau []byte, word []byte, attempts int,
 				tableau, compteur = Check(tableau, word, 'Õ', compteur)
 				tableau, compteur = Check(tableau, word, 'Ö', compteur)
 				if compteur == 6 {
-					attempts = abc(attempts)
+					attempts = wrong(attempts)
 				} else {
 					if ChooseFile() {
 						PrintArtTable(tableau, min)
@@ -776,7 +776,7 @@ func CheckAccents(min bool, maj bool, tableau []byte, word []byte, attempts int,
 				tableau, compteur = Check(tableau, word, 'Û', compteur)
 				tableau, compteur = Check(tableau, word, 'Ü', compteur)
 				if compteur == 5 {
-					attempts = abc(attempts)
+					attempts = wrong(attempts)
 				} else {
 					if ChooseFile() {
 						PrintArtTable(tableau, min)
@@ -795,7 +795,7 @@ func CheckAccents(min bool, maj bool, tableau []byte, word []byte, attempts int,
 				tableau, compteur = Check(tableau, word, 'Û', compteur)
 				tableau, compteur = Check(tableau, word, 'Ü', compteur)
 				if compteur == 5 {
-					attempts = abc(attempts)
+					attempts = wrong(attempts)
 				} else {
 					if ChooseFile() {
 						PrintArtTable(tableau, min)
@@ -816,7 +816,7 @@ func CheckAccents(min bool, maj bool, tableau []byte, word []byte, attempts int,
 					PrintTable(tableau)
 				}
 			} else if !maj {
-				attempts = abc(attempts)
+				attempts = wrong(attempts)
 			}
 		}
 
@@ -879,12 +879,15 @@ func PrintHang(attempts int) {
 	fmt.Println(string(arr[0+80*(nb-1)-(1*(nb-1)) : 77+80*(nb-1)-(1*(nb-1))]))
 }
 
-func abc(attempts int) int {
+func wrong(attempts int) int {
 	attempts--
 	fmt.Print("Not present in the word, ")
 	fmt.Print(attempts)
 	fmt.Println(" attempts remaining")
 	PrintHang(attempts)
+	if attempts <= 0 {
+		os.Exit(0)
+	}
 	return attempts
 }
 
@@ -1000,7 +1003,6 @@ func AsciiArt(letter byte, table [8][]string, min bool) [8][]string {
 func PrintArtTable(tableau []byte, min bool) {
 	var table [8][]string
 	for _, elem := range tableau {
-		fmt.Println(elem)
 		if elem == 95 {
 			table = AsciiArt(95, table, min)
 		} else if (elem > 231 && elem < 236) || (elem > 199 && elem < 204) {
@@ -1014,7 +1016,6 @@ func PrintArtTable(tableau []byte, min bool) {
 		}
 
 	}
-
 	for i := 0; i < len(table); i++ {
 		for k := 0; k < len(table[i]); k++ {
 			fmt.Print(table[i][k])
