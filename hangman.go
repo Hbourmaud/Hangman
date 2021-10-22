@@ -929,10 +929,8 @@ func AsciiArt(letter byte, table [8][]string, min bool) [8][]string {
 			}
 			compteur++
 		}
-		//fmt.Println(compteur)
 		begin = (begin + (8 * compteur)) + 1*compteur
 		end := (begin + 8)
-		//fmt.Println(begin)
 		for scanner.Scan() {
 			cpt++
 			test = (scanner.Text())
@@ -940,7 +938,6 @@ func AsciiArt(letter byte, table [8][]string, min bool) [8][]string {
 			if cpt > begin {
 				cpt2++
 				table[cpt2] = append(table[cpt2], test)
-				//fmt.Println(test)
 			}
 
 			if cpt == end {
@@ -949,9 +946,36 @@ func AsciiArt(letter byte, table [8][]string, min bool) [8][]string {
 			}
 		}
 	}
-	//a
+	//A
 	if letter == 64 {
 		begin = 298
+		if min {
+			begin = 587
+		}
+		end := (begin + 8)
+		for scanner.Scan() {
+			cpt++
+			test = (scanner.Text())
+
+			if cpt > begin {
+				cpt2++
+				table[cpt2] = append(table[cpt2], test)
+			}
+
+			if cpt == end {
+				file.Close()
+				break
+			}
+		}
+	}
+	if letter > 96 && letter < 123 {
+		for i := 96; i < 123; i++ {
+			if letter == byte(i) {
+				break
+			}
+			compteur++
+		}
+		begin = (begin + (8 * compteur)) + 1*compteur
 		end := (begin + 8)
 		for scanner.Scan() {
 			cpt++
