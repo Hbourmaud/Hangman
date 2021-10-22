@@ -908,7 +908,7 @@ func ChooseFile() bool {
 }
 
 func AsciiArt(letter byte, table [8][]string, min bool) [8][]string {
-	file, err := os.Open("standard.txt")
+	file, err := os.Open(os.Args[3])
 	if err != nil {
 		fmt.Println("No Ascii Art ! Please make one !")
 		os.Exit(0)
@@ -917,7 +917,7 @@ func AsciiArt(letter byte, table [8][]string, min bool) [8][]string {
 	compteur := 0
 	begin := 298
 	if min {
-		begin = 587
+		begin = 586
 	}
 	cpt := 0
 	cpt2 := -1
@@ -929,8 +929,10 @@ func AsciiArt(letter byte, table [8][]string, min bool) [8][]string {
 			}
 			compteur++
 		}
+		//fmt.Println(compteur)
 		begin = (begin + (8 * compteur)) + 1*compteur
 		end := (begin + 8)
+		//fmt.Println(begin)
 		for scanner.Scan() {
 			cpt++
 			test = (scanner.Text())
@@ -938,6 +940,7 @@ func AsciiArt(letter byte, table [8][]string, min bool) [8][]string {
 			if cpt > begin {
 				cpt2++
 				table[cpt2] = append(table[cpt2], test)
+				//fmt.Println(test)
 			}
 
 			if cpt == end {
@@ -946,36 +949,12 @@ func AsciiArt(letter byte, table [8][]string, min bool) [8][]string {
 			}
 		}
 	}
-	//A
+	//a
 	if letter == 64 {
 		begin = 298
 		if min {
-			begin = 587
+			begin = 586
 		}
-		end := (begin + 8)
-		for scanner.Scan() {
-			cpt++
-			test = (scanner.Text())
-
-			if cpt > begin {
-				cpt2++
-				table[cpt2] = append(table[cpt2], test)
-			}
-
-			if cpt == end {
-				file.Close()
-				break
-			}
-		}
-	}
-	if letter > 96 && letter < 123 {
-		for i := 96; i < 123; i++ {
-			if letter == byte(i) {
-				break
-			}
-			compteur++
-		}
-		begin = (begin + (8 * compteur)) + 1*compteur
 		end := (begin + 8)
 		for scanner.Scan() {
 			cpt++
@@ -1021,14 +1000,15 @@ func AsciiArt(letter byte, table [8][]string, min bool) [8][]string {
 func PrintArtTable(tableau []byte, min bool) {
 	var table [8][]string
 	for _, elem := range tableau {
+		fmt.Println(elem)
 		if elem == 95 {
 			table = AsciiArt(95, table, min)
-		} else if elem > 231 && elem < 236 {
+		} else if (elem > 231 && elem < 236) || (elem > 199 && elem < 204) {
 			table = AsciiArt(68, table, min)
 		} else {
 			if elem > 64 && elem < 91 {
 				table = AsciiArt(elem-1, table, min)
-			} else {
+			} else if elem > 95 && elem < 123 {
 				table = AsciiArt(elem-33, table, min)
 			}
 		}
