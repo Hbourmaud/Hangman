@@ -23,11 +23,14 @@ func main() {
 	min := false
 	var attempts int
 	var tableau []byte
-	var table [8][]string
 	var stockLetter []byte
 	var tempostock []byte
 	if CheckSave() {
-		save, _ := os.Open(os.Args[2])
+		save, err := os.Open(os.Args[2])
+		if err != nil {
+			fmt.Println("This save doesn't exist !")
+			os.Exit(0)
+		}
 		info, _ := os.Stat(os.Args[2])
 		size := info.Size()
 		arr := make([]byte, size)
@@ -45,7 +48,7 @@ func main() {
 		tableau = []byte{}
 	}
 	//cheat code
-	//fmt.Println(string((word)))
+	fmt.Println(string((word)))
 	fmt.Println("Good Luck, you have", attempts, "attempts.")
 	lword := len(word)
 	if !CheckSave() {
@@ -86,14 +89,12 @@ func main() {
 			}
 		}
 	}
-	PrintTable(tableau)
-	table = AsciiArt(letter, table)
-	for i := 0; i < len(table); i++ {
-		for k := 0; k < len(table[i]); k++ {
-			fmt.Println(string(table[i][k]))
-		}
+	if ChooseFile() {
+		PrintArtTable(tableau)
+	} else {
+		PrintTable(tableau)
+		fmt.Println()
 	}
-	fmt.Println()
 	CheckAccents(min, maj, tableau, word, attempts, string(letter), tempostock)
 }
 
@@ -104,7 +105,11 @@ func WordChoose() []byte {
 	index := 0
 	args := os.Args[1]
 	var word []byte
-	listword, _ := ioutil.ReadFile(args)
+	listword, err := ioutil.ReadFile(args)
+	if err != nil {
+		fmt.Println("This ListWord doesn't exist !")
+		os.Exit(0)
+	}
 	info, _ := os.Stat(args)
 	size := info.Size()
 	arr := make([]byte, size)
@@ -371,7 +376,12 @@ func CheckAccents(min bool, maj bool, tableau []byte, word []byte, attempts int,
 			}
 		}
 		if string(sentence) == string(word) {
-			PrintTable(word)
+			if ChooseFile() {
+				PrintArtTable(word)
+			} else {
+				PrintTable(word)
+				fmt.Println()
+			}
 			fmt.Println("Congrats !")
 			os.Exit(0)
 		} else if len(sentence) > 1 {
@@ -409,7 +419,12 @@ func CheckAccents(min bool, maj bool, tableau []byte, word []byte, attempts int,
 				if compteur == 5 {
 					attempts = abc(attempts)
 				} else {
-					PrintTable(tableau)
+					if ChooseFile() {
+						PrintArtTable(tableau)
+					} else {
+						PrintTable(tableau)
+						fmt.Println()
+					}
 				}
 			}
 			// accent de 'E' en minuscune
@@ -423,7 +438,12 @@ func CheckAccents(min bool, maj bool, tableau []byte, word []byte, attempts int,
 				if compteur == 5 {
 					attempts = abc(attempts)
 				} else {
-					PrintTable(tableau)
+					if ChooseFile() {
+						PrintArtTable(tableau)
+					} else {
+						PrintTable(tableau)
+						fmt.Println()
+					}
 				}
 			}
 			// accent de 'a'
@@ -439,7 +459,16 @@ func CheckAccents(min bool, maj bool, tableau []byte, word []byte, attempts int,
 				if compteur == 7 {
 					attempts = abc(attempts)
 				} else {
-					PrintTable(tableau)
+					if ChooseFile() {
+						PrintArtTable(tableau)
+					} else {
+						if ChooseFile() {
+							PrintArtTable(tableau)
+						} else {
+							PrintTable(tableau)
+							fmt.Println()
+						}
+					}
 				}
 			}
 			// accent de 'A' en minuscule
@@ -455,7 +484,12 @@ func CheckAccents(min bool, maj bool, tableau []byte, word []byte, attempts int,
 				if compteur == 7 {
 					attempts = abc(attempts)
 				} else {
-					PrintTable(tableau)
+					if ChooseFile() {
+						PrintArtTable(tableau)
+					} else {
+						PrintTable(tableau)
+						fmt.Println()
+					}
 				}
 			}
 			// accent de 'i'
@@ -469,7 +503,12 @@ func CheckAccents(min bool, maj bool, tableau []byte, word []byte, attempts int,
 				if compteur == 5 {
 					attempts = abc(attempts)
 				} else {
-					PrintTable(tableau)
+					if ChooseFile() {
+						PrintArtTable(tableau)
+					} else {
+						PrintTable(tableau)
+						fmt.Println()
+					}
 				}
 			}
 			// accent de 'I' en minuscule
@@ -483,7 +522,12 @@ func CheckAccents(min bool, maj bool, tableau []byte, word []byte, attempts int,
 				if compteur == 5 {
 					attempts = abc(attempts)
 				} else {
-					PrintTable(tableau)
+					if ChooseFile() {
+						PrintArtTable(tableau)
+					} else {
+						PrintTable(tableau)
+						fmt.Println()
+					}
 				}
 			}
 			// accent de 'o'
@@ -498,7 +542,12 @@ func CheckAccents(min bool, maj bool, tableau []byte, word []byte, attempts int,
 				if compteur == 6 {
 					attempts = abc(attempts)
 				} else {
-					PrintTable(tableau)
+					if ChooseFile() {
+						PrintArtTable(tableau)
+					} else {
+						PrintTable(tableau)
+						fmt.Println()
+					}
 				}
 			}
 			// accent de 'O' en minuscule
@@ -513,7 +562,12 @@ func CheckAccents(min bool, maj bool, tableau []byte, word []byte, attempts int,
 				if compteur == 6 {
 					attempts = abc(attempts)
 				} else {
-					PrintTable(tableau)
+					if ChooseFile() {
+						PrintArtTable(tableau)
+					} else {
+						PrintTable(tableau)
+						fmt.Println()
+					}
 				}
 			}
 			// accent de 'u'
@@ -527,7 +581,12 @@ func CheckAccents(min bool, maj bool, tableau []byte, word []byte, attempts int,
 				if compteur == 5 {
 					attempts = abc(attempts)
 				} else {
-					PrintTable(tableau)
+					if ChooseFile() {
+						PrintArtTable(tableau)
+					} else {
+						PrintTable(tableau)
+						fmt.Println()
+					}
 				}
 			}
 			// accent de 'U' en minuscule
@@ -541,7 +600,12 @@ func CheckAccents(min bool, maj bool, tableau []byte, word []byte, attempts int,
 				if compteur == 5 {
 					attempts = abc(attempts)
 				} else {
-					PrintTable(tableau)
+					if ChooseFile() {
+						PrintArtTable(tableau)
+					} else {
+						PrintTable(tableau)
+						fmt.Println()
+					}
 				}
 			}
 		} else if maj {
@@ -556,7 +620,12 @@ func CheckAccents(min bool, maj bool, tableau []byte, word []byte, attempts int,
 				if compteur == 5 {
 					attempts = abc(attempts)
 				} else {
-					PrintTable(tableau)
+					if ChooseFile() {
+						PrintArtTable(tableau)
+					} else {
+						PrintTable(tableau)
+						fmt.Println()
+					}
 				}
 			}
 			// accent de 'e' en majuscule
@@ -570,7 +639,12 @@ func CheckAccents(min bool, maj bool, tableau []byte, word []byte, attempts int,
 				if compteur == 5 {
 					attempts = abc(attempts)
 				} else {
-					PrintTable(tableau)
+					if ChooseFile() {
+						PrintArtTable(tableau)
+					} else {
+						PrintTable(tableau)
+						fmt.Println()
+					}
 				}
 			}
 			// accent de 'A'
@@ -586,7 +660,12 @@ func CheckAccents(min bool, maj bool, tableau []byte, word []byte, attempts int,
 				if compteur == 7 {
 					attempts = abc(attempts)
 				} else {
-					PrintTable(tableau)
+					if ChooseFile() {
+						PrintArtTable(tableau)
+					} else {
+						PrintTable(tableau)
+						fmt.Println()
+					}
 				}
 			}
 			// accent de 'a' en majuscule
@@ -602,7 +681,12 @@ func CheckAccents(min bool, maj bool, tableau []byte, word []byte, attempts int,
 				if compteur == 7 {
 					attempts = abc(attempts)
 				} else {
-					PrintTable(tableau)
+					if ChooseFile() {
+						PrintArtTable(tableau)
+					} else {
+						PrintTable(tableau)
+						fmt.Println()
+					}
 				}
 			}
 			// accent de 'I'
@@ -616,7 +700,12 @@ func CheckAccents(min bool, maj bool, tableau []byte, word []byte, attempts int,
 				if compteur == 5 {
 					attempts = abc(attempts)
 				} else {
-					PrintTable(tableau)
+					if ChooseFile() {
+						PrintArtTable(tableau)
+					} else {
+						PrintTable(tableau)
+						fmt.Println()
+					}
 				}
 			}
 			// accent de 'i' en majuscule
@@ -630,7 +719,12 @@ func CheckAccents(min bool, maj bool, tableau []byte, word []byte, attempts int,
 				if compteur == 5 {
 					attempts = abc(attempts)
 				} else {
-					PrintTable(tableau)
+					if ChooseFile() {
+						PrintArtTable(tableau)
+					} else {
+						PrintTable(tableau)
+						fmt.Println()
+					}
 				}
 			}
 			// accent de 'O'
@@ -645,7 +739,12 @@ func CheckAccents(min bool, maj bool, tableau []byte, word []byte, attempts int,
 				if compteur == 6 {
 					attempts = abc(attempts)
 				} else {
-					PrintTable(tableau)
+					if ChooseFile() {
+						PrintArtTable(tableau)
+					} else {
+						PrintTable(tableau)
+						fmt.Println()
+					}
 				}
 			}
 			// accent de 'o' en majuscule
@@ -660,7 +759,12 @@ func CheckAccents(min bool, maj bool, tableau []byte, word []byte, attempts int,
 				if compteur == 6 {
 					attempts = abc(attempts)
 				} else {
-					PrintTable(tableau)
+					if ChooseFile() {
+						PrintArtTable(tableau)
+					} else {
+						PrintTable(tableau)
+						fmt.Println()
+					}
 				}
 			}
 			// accent de 'U'
@@ -674,7 +778,12 @@ func CheckAccents(min bool, maj bool, tableau []byte, word []byte, attempts int,
 				if compteur == 5 {
 					attempts = abc(attempts)
 				} else {
-					PrintTable(tableau)
+					if ChooseFile() {
+						PrintArtTable(tableau)
+					} else {
+						PrintTable(tableau)
+						fmt.Println()
+					}
 				}
 			}
 			// accent de 'u' en majuscule
@@ -688,7 +797,12 @@ func CheckAccents(min bool, maj bool, tableau []byte, word []byte, attempts int,
 				if compteur == 5 {
 					attempts = abc(attempts)
 				} else {
-					PrintTable(tableau)
+					if ChooseFile() {
+						PrintArtTable(tableau)
+					} else {
+						PrintTable(tableau)
+						fmt.Println()
+					}
 				}
 			}
 		}
@@ -696,7 +810,11 @@ func CheckAccents(min bool, maj bool, tableau []byte, word []byte, attempts int,
 			compteur := -5
 			tableau, compteur = Check(tableau, word, lettertest, compteur)
 			if compteur == -1 && lettertest != 'E' && lettertest != 'A' && lettertest != 'I' && lettertest != 'O' && lettertest != 'U' {
-				PrintTable(tableau)
+				if ChooseFile() {
+					PrintArtTable(tableau)
+				} else {
+					PrintTable(tableau)
+				}
 			} else if !maj {
 				attempts = abc(attempts)
 			}
@@ -747,7 +865,11 @@ func PrintTable(tableau []byte) {
 }
 
 func PrintHang(attempts int) {
-	hang, _ := os.Open("hangman.txt")
+	hang, err := os.Open("hangman.txt")
+	if err != nil {
+		fmt.Println("No hangman.txt file ! Please make one !")
+		os.Exit(0)
+	}
 	info, _ := os.Stat("hangman.txt")
 	size := info.Size()
 	arr := make([]byte, size)
@@ -773,9 +895,24 @@ func CheckSave() bool {
 	return false
 }
 
-func AsciiArt(letter byte, table [8][]string) [8][]string {
-	file, _ := os.Open("standard.txt")
+func ChooseFile() bool {
+	main := os.Args
 
+	if len(main) > 3 {
+		if main[2] == "--letterFile" && main[3] != "" {
+			return true
+		}
+	}
+	return false
+
+}
+
+func AsciiArt(letter byte, table [8][]string) [8][]string {
+	file, err := os.Open("standard.txt")
+	if err != nil {
+		fmt.Println("No Ascii Art ! Please make one !")
+		os.Exit(0)
+	}
 	var test string
 	compteur := 0
 	begin := 298
@@ -789,7 +926,7 @@ func AsciiArt(letter byte, table [8][]string) [8][]string {
 			}
 			compteur++
 		}
-		fmt.Println(compteur)
+		//fmt.Println(compteur)
 		begin = (begin + (8 * compteur)) + 1*compteur
 		end := (begin + 8)
 		//fmt.Println(begin)
@@ -830,12 +967,12 @@ func AsciiArt(letter byte, table [8][]string) [8][]string {
 	}
 	//tiret
 	if letter == 95 {
-		begin = 116
-		end := (begin + 6)
-		cpt2++
-		table[cpt2] = append(table[cpt2], "        ")
-		cpt2++
-		table[cpt2] = append(table[cpt2], "        ")
+		begin = 118
+		end := 122
+		for i := 0; i < 4; i++ {
+			cpt2++
+			table[cpt2] = append(table[cpt2], "         ")
+		}
 		for scanner.Scan() {
 			cpt++
 			test = (scanner.Text())
@@ -852,4 +989,29 @@ func AsciiArt(letter byte, table [8][]string) [8][]string {
 		}
 	}
 	return table
+}
+
+func PrintArtTable(tableau []byte) {
+	var table [8][]string
+	for _, elem := range tableau {
+		if elem == 95 {
+			table = AsciiArt(95, table)
+		} else if elem > 231 && elem < 236 {
+			table = AsciiArt(68, table)
+		} else {
+			if elem > 64 && elem < 91 {
+				table = AsciiArt(elem-1, table)
+			} else {
+				table = AsciiArt(elem-33, table)
+			}
+		}
+
+	}
+
+	for i := 0; i < len(table); i++ {
+		for k := 0; k < len(table[i]); k++ {
+			fmt.Print(table[i][k])
+		}
+		fmt.Println()
+	}
 }
