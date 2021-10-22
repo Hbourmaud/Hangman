@@ -90,7 +90,7 @@ func main() {
 		}
 	}
 	if ChooseFile() {
-		PrintArtTable(tableau)
+		PrintArtTable(tableau, min)
 	} else {
 		PrintTable(tableau)
 		fmt.Println()
@@ -377,7 +377,7 @@ func CheckAccents(min bool, maj bool, tableau []byte, word []byte, attempts int,
 		}
 		if string(sentence) == string(word) {
 			if ChooseFile() {
-				PrintArtTable(word)
+				PrintArtTable(word, min)
 			} else {
 				PrintTable(word)
 				fmt.Println()
@@ -420,7 +420,7 @@ func CheckAccents(min bool, maj bool, tableau []byte, word []byte, attempts int,
 					attempts = abc(attempts)
 				} else {
 					if ChooseFile() {
-						PrintArtTable(tableau)
+						PrintArtTable(tableau, min)
 					} else {
 						PrintTable(tableau)
 						fmt.Println()
@@ -439,7 +439,7 @@ func CheckAccents(min bool, maj bool, tableau []byte, word []byte, attempts int,
 					attempts = abc(attempts)
 				} else {
 					if ChooseFile() {
-						PrintArtTable(tableau)
+						PrintArtTable(tableau, min)
 					} else {
 						PrintTable(tableau)
 						fmt.Println()
@@ -460,10 +460,10 @@ func CheckAccents(min bool, maj bool, tableau []byte, word []byte, attempts int,
 					attempts = abc(attempts)
 				} else {
 					if ChooseFile() {
-						PrintArtTable(tableau)
+						PrintArtTable(tableau, min)
 					} else {
 						if ChooseFile() {
-							PrintArtTable(tableau)
+							PrintArtTable(tableau, min)
 						} else {
 							PrintTable(tableau)
 							fmt.Println()
@@ -485,7 +485,7 @@ func CheckAccents(min bool, maj bool, tableau []byte, word []byte, attempts int,
 					attempts = abc(attempts)
 				} else {
 					if ChooseFile() {
-						PrintArtTable(tableau)
+						PrintArtTable(tableau, min)
 					} else {
 						PrintTable(tableau)
 						fmt.Println()
@@ -504,7 +504,7 @@ func CheckAccents(min bool, maj bool, tableau []byte, word []byte, attempts int,
 					attempts = abc(attempts)
 				} else {
 					if ChooseFile() {
-						PrintArtTable(tableau)
+						PrintArtTable(tableau, min)
 					} else {
 						PrintTable(tableau)
 						fmt.Println()
@@ -523,7 +523,7 @@ func CheckAccents(min bool, maj bool, tableau []byte, word []byte, attempts int,
 					attempts = abc(attempts)
 				} else {
 					if ChooseFile() {
-						PrintArtTable(tableau)
+						PrintArtTable(tableau, min)
 					} else {
 						PrintTable(tableau)
 						fmt.Println()
@@ -543,7 +543,7 @@ func CheckAccents(min bool, maj bool, tableau []byte, word []byte, attempts int,
 					attempts = abc(attempts)
 				} else {
 					if ChooseFile() {
-						PrintArtTable(tableau)
+						PrintArtTable(tableau, min)
 					} else {
 						PrintTable(tableau)
 						fmt.Println()
@@ -563,7 +563,7 @@ func CheckAccents(min bool, maj bool, tableau []byte, word []byte, attempts int,
 					attempts = abc(attempts)
 				} else {
 					if ChooseFile() {
-						PrintArtTable(tableau)
+						PrintArtTable(tableau, min)
 					} else {
 						PrintTable(tableau)
 						fmt.Println()
@@ -582,7 +582,7 @@ func CheckAccents(min bool, maj bool, tableau []byte, word []byte, attempts int,
 					attempts = abc(attempts)
 				} else {
 					if ChooseFile() {
-						PrintArtTable(tableau)
+						PrintArtTable(tableau, min)
 					} else {
 						PrintTable(tableau)
 						fmt.Println()
@@ -601,7 +601,7 @@ func CheckAccents(min bool, maj bool, tableau []byte, word []byte, attempts int,
 					attempts = abc(attempts)
 				} else {
 					if ChooseFile() {
-						PrintArtTable(tableau)
+						PrintArtTable(tableau, min)
 					} else {
 						PrintTable(tableau)
 						fmt.Println()
@@ -621,7 +621,7 @@ func CheckAccents(min bool, maj bool, tableau []byte, word []byte, attempts int,
 					attempts = abc(attempts)
 				} else {
 					if ChooseFile() {
-						PrintArtTable(tableau)
+						PrintArtTable(tableau, min)
 					} else {
 						PrintTable(tableau)
 						fmt.Println()
@@ -640,7 +640,7 @@ func CheckAccents(min bool, maj bool, tableau []byte, word []byte, attempts int,
 					attempts = abc(attempts)
 				} else {
 					if ChooseFile() {
-						PrintArtTable(tableau)
+						PrintArtTable(tableau, min)
 					} else {
 						PrintTable(tableau)
 						fmt.Println()
@@ -661,7 +661,7 @@ func CheckAccents(min bool, maj bool, tableau []byte, word []byte, attempts int,
 					attempts = abc(attempts)
 				} else {
 					if ChooseFile() {
-						PrintArtTable(tableau)
+						PrintArtTable(tableau, min)
 					} else {
 						PrintTable(tableau)
 						fmt.Println()
@@ -682,7 +682,7 @@ func CheckAccents(min bool, maj bool, tableau []byte, word []byte, attempts int,
 					attempts = abc(attempts)
 				} else {
 					if ChooseFile() {
-						PrintArtTable(tableau)
+						PrintArtTable(tableau, min)
 					} else {
 						PrintTable(tableau)
 						fmt.Println()
@@ -701,7 +701,7 @@ func CheckAccents(min bool, maj bool, tableau []byte, word []byte, attempts int,
 					attempts = abc(attempts)
 				} else {
 					if ChooseFile() {
-						PrintArtTable(tableau)
+						PrintArtTable(tableau, min)
 					} else {
 						PrintTable(tableau)
 						fmt.Println()
@@ -720,7 +720,7 @@ func CheckAccents(min bool, maj bool, tableau []byte, word []byte, attempts int,
 					attempts = abc(attempts)
 				} else {
 					if ChooseFile() {
-						PrintArtTable(tableau)
+						PrintArtTable(tableau, min)
 					} else {
 						PrintTable(tableau)
 						fmt.Println()
@@ -740,7 +740,7 @@ func CheckAccents(min bool, maj bool, tableau []byte, word []byte, attempts int,
 					attempts = abc(attempts)
 				} else {
 					if ChooseFile() {
-						PrintArtTable(tableau)
+						PrintArtTable(tableau, min)
 					} else {
 						PrintTable(tableau)
 						fmt.Println()
@@ -760,7 +760,7 @@ func CheckAccents(min bool, maj bool, tableau []byte, word []byte, attempts int,
 					attempts = abc(attempts)
 				} else {
 					if ChooseFile() {
-						PrintArtTable(tableau)
+						PrintArtTable(tableau, min)
 					} else {
 						PrintTable(tableau)
 						fmt.Println()
@@ -779,7 +779,7 @@ func CheckAccents(min bool, maj bool, tableau []byte, word []byte, attempts int,
 					attempts = abc(attempts)
 				} else {
 					if ChooseFile() {
-						PrintArtTable(tableau)
+						PrintArtTable(tableau, min)
 					} else {
 						PrintTable(tableau)
 						fmt.Println()
@@ -798,7 +798,7 @@ func CheckAccents(min bool, maj bool, tableau []byte, word []byte, attempts int,
 					attempts = abc(attempts)
 				} else {
 					if ChooseFile() {
-						PrintArtTable(tableau)
+						PrintArtTable(tableau, min)
 					} else {
 						PrintTable(tableau)
 						fmt.Println()
@@ -811,7 +811,7 @@ func CheckAccents(min bool, maj bool, tableau []byte, word []byte, attempts int,
 			tableau, compteur = Check(tableau, word, lettertest, compteur)
 			if compteur == -1 && lettertest != 'E' && lettertest != 'A' && lettertest != 'I' && lettertest != 'O' && lettertest != 'U' {
 				if ChooseFile() {
-					PrintArtTable(tableau)
+					PrintArtTable(tableau, min)
 				} else {
 					PrintTable(tableau)
 				}
@@ -907,7 +907,7 @@ func ChooseFile() bool {
 
 }
 
-func AsciiArt(letter byte, table [8][]string) [8][]string {
+func AsciiArt(letter byte, table [8][]string, min bool) [8][]string {
 	file, err := os.Open("standard.txt")
 	if err != nil {
 		fmt.Println("No Ascii Art ! Please make one !")
@@ -916,6 +916,9 @@ func AsciiArt(letter byte, table [8][]string) [8][]string {
 	var test string
 	compteur := 0
 	begin := 298
+	if min {
+		begin = 587
+	}
 	cpt := 0
 	cpt2 := -1
 	scanner := bufio.NewScanner(file)
@@ -991,18 +994,18 @@ func AsciiArt(letter byte, table [8][]string) [8][]string {
 	return table
 }
 
-func PrintArtTable(tableau []byte) {
+func PrintArtTable(tableau []byte, min bool) {
 	var table [8][]string
 	for _, elem := range tableau {
 		if elem == 95 {
-			table = AsciiArt(95, table)
+			table = AsciiArt(95, table, min)
 		} else if elem > 231 && elem < 236 {
-			table = AsciiArt(68, table)
+			table = AsciiArt(68, table, min)
 		} else {
 			if elem > 64 && elem < 91 {
-				table = AsciiArt(elem-1, table)
+				table = AsciiArt(elem-1, table, min)
 			} else {
-				table = AsciiArt(elem-33, table)
+				table = AsciiArt(elem-33, table, min)
 			}
 		}
 
