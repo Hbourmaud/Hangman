@@ -44,7 +44,7 @@ func main() {
 		tableau = []byte{}
 	}
 	//cheat code
-	//fmt.Println(string((word)))
+	fmt.Println(string((word)))
 	fmt.Println("Good Luck, you have", attempts, "attempts.")
 	lword := len(word)
 	if !CheckSave() {

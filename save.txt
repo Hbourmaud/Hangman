@@ -1,1 +1,1 @@
-"ZV9f""ZWF1"5
+{"Attempts":10,"Word":"cmVudHJlZQ==","Tableau":"cmVfX19fXw==","Stock":""}
