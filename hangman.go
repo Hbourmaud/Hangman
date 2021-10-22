@@ -766,3 +766,8 @@ func CheckSave() bool {
 	}
 	return false
 }
+
+func AsciiArt(letter byte, table [][]string) [][]string {
+
+	return table
+}
