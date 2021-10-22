@@ -15,7 +15,7 @@ func main() {
 	defer file.Close()
 
 	var test string
-	letter := 65
+	letter := 65 - 1
 	compteur := 0
 	begin := 298
 	cpt := 0
@@ -32,6 +32,27 @@ func main() {
 		end := (begin + 8)
 		//fmt.Println(begin)
 
+		for scanner.Scan() {
+			cpt++
+			test = (scanner.Text())
+
+			if cpt > begin {
+				fmt.Println(test)
+			}
+
+			if cpt == end {
+				os.Exit(0)
+			}
+		}
+
+		if err := scanner.Err(); err != nil {
+			log.Fatal(err)
+		}
+	}
+
+	if letter == 64 {
+		begin = 298
+		end := (begin + 8)
 		for scanner.Scan() {
 			cpt++
 			test = (scanner.Text())
