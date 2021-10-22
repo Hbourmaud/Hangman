@@ -15,9 +15,9 @@ func main() {
 	defer file.Close()
 
 	var test string
-	letter := 68
+	letter := 65
 	compteur := 0
-	begin := 299
+	begin := 298
 	cpt := 0
 	scanner := bufio.NewScanner(file)
 	if letter > 64 && letter < 91 {
@@ -27,7 +27,9 @@ func main() {
 			}
 			compteur++
 		}
-		begin = (begin - 4) + (6 * compteur)
+		fmt.Println(compteur)
+		begin = (begin + (8 * compteur)) + 1*compteur
+		end := (begin + 8)
 		//fmt.Println(begin)
 
 		for scanner.Scan() {
@@ -38,7 +40,7 @@ func main() {
 				fmt.Println(test)
 			}
 
-			if cpt == (begin + 8) {
+			if cpt == end {
 				os.Exit(0)
 			}
 		}
