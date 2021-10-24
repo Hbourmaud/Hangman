@@ -203,7 +203,7 @@ func EnterLetter(tableauX []byte, lucky int, attempts int) (byte, []byte, int, b
 			repsentence = append(repsentence, byte(wordabc))
 		}
 		for i := 0; i < len(bytestop); i++ {
-			if bytestop[i] == repsentence[i] {
+			if len(bytestop) == len(repsentence) && (bytestop[i] == repsentence[i]) {
 				stopgame = true
 			} else {
 				break
